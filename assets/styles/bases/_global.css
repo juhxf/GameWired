@@ -1,0 +1,52 @@
+*:focus-visible {
+  outline: 1px solid var(--bg-Button);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+body {
+  font-family: "Outfit", "SFPro", system-ui;
+  background: var(--bg-Background);
+  color: var(--bg-Font);
+  transition: all 2s ease;
+  position: relative;
+  overflow-x: hidden;
+
+  /* Se outros elementos precisarem de z-index positivo */
+}
+
+.eclipse::before {
+  content: "";
+  position: fixed;
+  height: 800px;
+  width: 800px;
+  /* Corrigido: Usando radial-gradient para um efeito mais suave */
+  /* Ele começa com a cor da eclipse no centro, e vai para transparente */
+  background: radial-gradient(
+    circle at center,
+    var(--bg-Eclipse) 0%,
+    /* Cor sólida no centro */ rgba(var(--bg-Eclipse-rgb), 0.8) 20%,
+    /* Levemente transparente */ rgba(var(--bg-Eclipse-rgb), 0.5) 40%,
+    /* Mais transparente */ rgba(var(--bg-Eclipse-rgb), 0.2) 60%,
+    /* Bem transparente */ transparent 80%
+      /* Totalmente transparente, criando a borda suave */
+  );
+  border-radius: 100%;
+  filter: blur(64px);
+  /* Removido: filter: blur(200px); - o degradê já faz o trabalho de suavização */
+  top: -30%;
+  right: -10%;
+  z-index: -1;
+  /* Opcional: Adicionar um leve scale em hover, se for interativo */
+  /* transform: scale(1); */
+  /* transition: transform 0.5s ease-out; */
+}
+
+@media screen and (max-width: 640px) {
+  .eclipse::before {
+    height: 679px;
+    width: 679px;
+    right: -70%;
+    top: -30%;
+  }
+}

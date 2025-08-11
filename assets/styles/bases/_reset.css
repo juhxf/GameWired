@@ -1,0 +1,134 @@
+/* 1. Reset Básico & Box-Sizing Universal */
+/* Garante que padding e border sejam incluídos na largura/altura total do elemento */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 2. Definir a Base de Tipografia (para uso com 'rem') */
+/* Define um font-size base de 16px para navegadores (ou 62.5% para facilitar cálculo: 1rem = 10px) */
+/* Aqui, estou usando 16px para ser mais explícito e moderno, 1rem = 16px */
+html {
+    font-size: 100%; /* Padrão do navegador, geralmente 16px. Garante acessibilidade com zoom. */
+    line-height: 1.5; /* Ajuda a normalizar o line-height entre elementos */
+    -webkit-text-size-adjust: 100%; /* Evita que o texto aumente em paisagem no iOS */
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 3. Remover Estilos Padrão de Elementos de Bloco para consistência */
+body {
+    min-height: 100vh; /* Garante que o body preencha a altura da viewport */
+    text-rendering: optimizeLegibility; /* Melhora a renderização da fonte */
+    -webkit-font-smoothing: antialiased; /* Suavização de fonte para Webkit */
+    -moz-osx-font-smoothing: grayscale; /* Suavização de fonte para Firefox */
+    font-family: system-ui, -apple-system, sans-serif; /* Fallback padrão */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0; /* Remove margem superior padrão */
+    font-weight: inherit; /* Herda o peso da fonte, ajuste depois */
+
+}
+
+p, pre, blockquote,
+dl, dd, menu, ol, ul {
+  margin: 0;
+}
+
+/* 4. Imagens e Mídias Responsivas por Padrão */
+img,
+picture,
+video,
+canvas,
+svg {
+    max-width: 100%; /* Garante que não transbordem seus contêineres */
+    height: auto;   /* Mantém a proporção original */
+    display: block; /* Remove espaço extra de linha base */
+
+}
+
+/* 5. Remover estilos padrão de listas */
+ol, ul {
+    list-style: none; /* Remove marcadores de lista */
+}
+
+/* 6. Acessibilidade e Estilos de Link */
+a {
+    text-decoration: none; /* Remove sublinhado padrão */
+    color: inherit; /* Herda a cor do texto pai, ajuste depois */
+    background-color: transparent;
+}
+
+/* 7. Estilos de Formulário para Consistência */
+button, input, select, textarea {
+    font-family: inherit; /* Herda a fonte do body */
+    font-size: 100%; /* Garante que os controles de formulário tenham o mesmo tamanho de fonte */
+    line-height: 1.15; /* Normaliza line-height */
+    margin: 0; /* Remove margem padrão */
+    border: none;
+  }
+
+button {
+    background-color: transparent; /* Remove fundo padrão */
+    border: 0; /* Remove borda padrão */
+    cursor: pointer;
+}
+
+/* 8. Outras considerações úteis */
+/* Ajuda a prevenir problemas de rolagem em algumas situações */
+/*html, body {
+    overflow-x: hidden;
+}*/
+
+/* Esconder visualmente, mas manter acessível para leitores de tela */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+[aria-busy="true"] {
+  cursor: progress;
+}
+
+[aria-controls] {
+  cursor: pointer;
+}
+
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* Reset de diálogo */
+dialog {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,166 @@
+#register {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  position: fixed;
+  height: 100vh;
+
+  .txt-register {
+    img {
+      width: 500px;
+      height: 500px;
+    }
+  }
+
+  .container-register {
+    .card-register {
+      background-color: var(--bg-Card);
+      border-radius: 20px;
+      padding: 1em;
+      height: auto;
+      width: 500px;
+      position: relative;
+    }
+
+    .header-register {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1vh;
+      a {
+        position: absolute;
+        right: 5%;
+        top: 3%;
+        font-size: 1.5em;
+      }
+    }
+
+    #form {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .input-box {
+        display: flex;
+        flex-direction: column;
+        text-wrap: nowrap;
+        padding-bottom: 0.8em;
+
+        input {
+          width: 387px;
+          height: 50px;
+          border-radius: 100px;
+          padding: 0.6em 1.2em;
+          background-color: #1c1c1c;
+          color: var(--bg-Font);
+
+          &:focus {
+            background-color: black;
+          }
+        }
+
+        .error {
+          color: var(--bg-Button);
+          font-size: 1rem;
+        }
+      }
+      .login {
+        display: flex;
+        align-items: center;
+
+        p,
+        a {
+          font-size: 1rem;
+        }
+
+        a {
+          color: var(--bg-Button);
+          text-decoration: underline;
+          padding: 0 0.5em;
+        }
+      }
+    }
+  }
+}
+
+.input-box.valid input {
+  border: 1px solid #74fc6f;
+}
+
+@media screen and (max-width: 1024px) {
+  #register {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3%;
+  }
+
+  .txt-register {
+    text-align: center;
+
+    img {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  #register {
+    .container-register {
+      width: 90%;
+      .card-register {
+        width: 100%;
+        position: relative;
+      }
+
+      #form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .input-box {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-wrap: nowrap;
+          padding-bottom: 0.5em;
+
+          input {
+            width: 280px;
+            height: 50px;
+            border-radius: 100px;
+            padding: 0.6em 1.2em;
+            background-color: #1c1c1c;
+            color: var(--bg-Font);
+
+            &:focus {
+              background-color: black;
+            }
+          }
+
+          .error {
+            color: var(--bg-Button);
+            font-size: 1rem;
+          }
+        }
+        .login {
+          display: flex;
+          align-items: center;
+
+          p,
+          a {
+            font-size: 1rem;
+          }
+
+          a {
+            color: var(--bg-Button);
+            text-decoration: underline;
+            padding: 0 0.5em;
+          }
+        }
+      }
+    }
+  }
+}

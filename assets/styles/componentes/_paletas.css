@@ -1,0 +1,20 @@
+:root {
+  --bg-Background: #000000;
+  --bg-Eclipse: #282348;
+  /* Cor principal em hexadecimal */
+  --bg-Eclipse-rgb: 40, 35, 72;
+  /* Equivalente em RGB para usar com RGBA */
+  --bg-Button: #8863e7;
+  --bg-Font: #f9fcff;
+  --bg-Card: #191919;
+  --bg-FooterFont: #f9fcff70;
+}
+
+.light-theme {
+  --bg-Background: #f8f9fa;
+  --bg-Eclipse: rgb(219, 205, 250);
+  --bg-Eclipse-rgb: 219, 205, 250;
+  --bg-Font: #282348;
+  --bg-Card: #ffffff;
+  --bg-FooterFont: #00000070;
+}

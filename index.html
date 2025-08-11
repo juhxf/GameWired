@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="GameWired, o blog de jogos que você estava esperando!"
+    />
+
+    <meta
+      name="keywords"
+      content="games, notícias, comunidade, interação, E-sports, PC, Desktop, PlayStation, Xbox, Mobile, steam, gamepass"
+    />
+
+    <meta name="author" content="GameWired - Group4" />
+
+    <link
+      rel="icon"
+      sizes="16x16 32x32 48x48"
+      type="image/png"
+      href="/src/imgs/Logo.svg"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
+
+    <link rel="stylesheet" href="/assets/styles/main.css" />
+
+    <link rel="stylesheet" href="/index.css" />
+
+    <title>GameWired</title>
+  </head>
+
+  <body>
+    <div class="eclipse"></div>
+
+    <header class="main-header">
+      <nav class="main-nav">
+        <div class="nav__logo">
+          <a href="#home">
+            <img
+              src="/src/imgs/Logo.svg"
+              data-theme-image
+              data-dark-src="/src/imgs/Logo.svg"
+              data-light-src="/src/imgs/Logolight.svg"
+              alt="Exemplo"
+            />
+          </a>
+        </div>
+
+        <div class="nav__center">
+          <ul>
+            <li>
+              <a href="/assets/pages/News/news.html" class="abas"> Notícias </a>
+            </li>
+            <li>
+              <a href="/assets/pages/Plataforms/plataforms.html" class="abas">
+                Plataformas
+              </a>
+            </li>
+            <li>
+              <a href="/assets/pages/Community/community.html" class="abas">
+                Comunidade
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="nav__user">
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Alternar tema"
+          >
+            <i class="ph ph-moon-stars"></i>
+          </button>
+
+          <a href="/assets/pages/SingUp/Register/register.html">
+            <i class="bi bi-person-badge"></i>
+          </a>
+
+          <button
+            class="nav-button"
+            aria-label="Abrir menu de navegação"
+            onclick="openMenu()"
+          >
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar3"></span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="nav__mobile">
+        <a href="/assets/pages/SingUp/Register/register.html">
+          <i class="bi bi-person-badge"></i>
+        </a>
+
+        <ul>
+          <li>
+            <a href="/assets/pages/News/news.html" class="abas-mobile">
+              Notícias
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/assets/pages/Plataforms/plataforms.html"
+              class="abas-mobile"
+            >
+              Plataformas
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/assets/pages/Community/community.html"
+              class="abas-mobile"
+            >
+              Comunidade
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="welcome">
+        <h1>Bem-vindo ao</h1>
+
+        <span> GameWired </span>
+
+        <p>Seu canal principal de notícias!</p>
+      </section>
+
+      <section class="news">
+        <h2>Fique por dentro das notícias</h2>
+
+        <p class="efect">
+          Tudo sobre jogos, notícias e lançamentos em um só lugar!
+        </p>
+
+        <div class="container-cards">
+          <article class="card-news">
+            <div class="img-card">
+              <img
+                src="/src/imgs/noticias/resident-evil-9.webp"
+                alt="Resident Evil 9"
+                loading="lazy"
+              />
+            </div>
+            <div class="txt-card">
+              <span class="date"> 10/06/2025 </span>
+
+              <h4>
+                Resident Evil 9: Requiem | Tudo sobre o novo game da franquia
+              </h4>
+
+              <p>
+                Durante o Sumer Game Fest, foi revelado o novo lançamento de
+                Resident Evil. A apresentação conta com um trailer mostrando
+                pontos importantes para os amantes da franquia.
+              </p>
+
+              <a
+                href="/assets/pages/News/notices/noticia-27.html"
+                class="link-card"
+              >
+                Leia mais
+              </a>
+            </div>
+          </article>
+
+          <article class="card-news">
+            <div class="img-card">
+              <img
+                src="/src/imgs/noticias/the-last-of-us-part-3.webp"
+                alt="The Last of Us Part 3"
+                loading="lazy"
+              />
+            </div>
+            <div class="txt-card">
+              <span class="date"> 10/06/2025 </span>
+
+              <h4>
+                The Last of Us 3 | Showrunner sabe "algumas ideias" do terceiro
+                jogo
+              </h4>
+
+              <p>
+                Após entrevista com realizada pela BAFTA, surgem boatos de um
+                novo lançamento para o terceiro jogo.
+              </p>
+
+              <a
+                href="/assets/pages/News/notices/noticia-26.html"
+                class="link-card"
+              >
+                Leia mais
+              </a>
+            </div>
+          </article>
+
+          <article class="card-news">
+            <div class="img-card">
+              <img
+                src="/src/imgs/noticias/lol-spirit-blossom.webp"
+                alt="League of Legends - Spirit Blossom"
+                loading="lazy"
+              />
+            </div>
+            <div class="txt-card">
+              <span class="date"> 09/06/2025 </span>
+
+              <h4>
+                LoL revela nova leva de skins Florescer Espiritual com foco
+                narrativo
+              </h4>
+
+              <p>
+                Riot revela oficialmente sua nova coleção de skins com temática
+                Spirit Blossom. Essa nova remessa combina referências
+                mitológicas com a narrativa integrada ao universo Runeterra.
+              </p>
+
+              <a
+                href="/assets/pages/News/notices/noticia-25.html"
+                class="link-card"
+              >
+                Leia mais
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="games">
+        <h3>Mais Jogados</h3>
+
+        <div class="carousel">
+          <div class="carousel-wrapper">
+            <article class="card__game">
+              <img
+                src="/src/imgs/games/CounterStrike.webp"
+                alt="CounterStrike 2"
+              />
+              <p>Counter Strike 2</p>
+            </article>
+
+            <article class="card__game">
+              <img src="/src/imgs/games/Overwatch2.webp" alt="Overwatch 2" />
+              <p>Overwatch 2</p>
+            </article>
+
+            <article class="card__game">
+              <img src="/src/imgs/games/Dota2.webp" alt="Dota 2" />
+              <p>Dota 2</p>
+            </article>
+
+            <article class="card__game">
+              <img src="/src/imgs/games/Fortnite.webp" alt="Fortnite" />
+              <p>Fortnite</p>
+            </article>
+
+            <article class="card__game">
+              <img src="/src/imgs/games/GTAV.webp" alt="Grand Theft Auto V" />
+              <p>Grand Theft Auto V</p>
+            </article>
+
+            <article class="card__game">
+              <img src="/src/imgs/games/LoL.webp" alt="League of Legends" />
+              <p>League of Legends</p>
+            </article>
+
+            <article class="card__game">
+              <img src="/src/imgs/games/Rematch.webp" alt="Rematch" />
+              <p>Rematch</p>
+            </article>
+
+            <article class="card__game">
+              <img src="/src/imgs/games/Vava.webp" alt="Valorant" />
+              <p>Valorant</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="community">
+        <h2>Participe da nossa comunidade</h2>
+        <p class="efect">
+          Prepare-se para encontrar amigos, rivais e parceiros de time que irão
+          te levar ao próximo nível!
+        </p>
+
+        <div class="container-community">
+          <div class="community-wrapper">
+            <article class="card-community">
+              <div class="community-user">
+                <img
+                  src="/src/imgs/comunidade/users/users1.webp"
+                  alt="Profile-photo"
+                />
+                <h4>wilso</h4>
+              </div>
+
+              <div class="txt-community">
+                <span> Disco Elysium </span>
+
+                <p>
+                  Esse jogo é uma grande experiência, com certeza é algo único
+                  que não pode ser vivido novamente. Jogar ele sem ter
+                  conhecimento de NADA (e sem procurar dicas na internet) é a
+                  melhor coisa que você pode fazer, é um mundo onde você
+                  genuinamente fica curioso pra saber mais dos personagens e ver
+                  o que eles tem a falar, você fica com uma sede insaciável de
+                  sair andando por aí investigando tudo e tentando entender o
+                  mundo que você simplesmente surgiu misteriosamente. joguem.
+                </p>
+
+                <div class="actions">
+                  <button>
+                    <i class="ph ph-hand-heart"></i>
+                  </button>
+
+                  <button>
+                    <i class="ph ph-chat-teardrop-text"></i>
+                  </button>
+
+                  <button>
+                    <i class="ph ph-share-fat"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article class="card-community">
+              <div class="community-user">
+                <img
+                  src="/src/imgs/comunidade/users/users10.webp"
+                  alt="Profile-photo"
+                />
+                <h4>user</h4>
+              </div>
+
+              <div class="txt-community">
+                <span> Sludge Life </span>
+
+                <p>
+                  Foda, curtinho e com uma vibe única. Sair por aí pela cidade
+                  toda fudida e conversar com os npcs é gostoso demais.
+                </p>
+
+                <div class="actions">
+                  <button>
+                    <i class="ph ph-hand-heart"></i>
+                  </button>
+
+                  <button>
+                    <i class="ph ph-chat-teardrop-text"></i>
+                  </button>
+
+                  <button>
+                    <i class="ph ph-share-fat"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article class="card-community">
+              <div class="community-user">
+                <img
+                  src="/src/imgs/comunidade/users/users5.webp"
+                  alt="Profile-photo"
+                />
+                <h4>wngx</h4>
+              </div>
+
+              <div class="txt-community">
+                <span> Alan Wake II </span>
+
+                <p>
+                  Terminei Alan Wake II semana passada... que jogo, cara! A
+                  Atmosfera pesada, história super imersiva. A troca entre o
+                  Alan e a Saga foi muito bem feita. Recomendo jogar de fone e
+                  no escuro para sentir o terror de verdade! kkkkkk.
+                </p>
+
+                <div class="actions">
+                  <button>
+                    <i class="ph ph-hand-heart"></i>
+                  </button>
+
+                  <button>
+                    <i class="ph ph-chat-teardrop-text"></i>
+                  </button>
+
+                  <button>
+                    <i class="ph ph-share-fat"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="developers">
+        <aside class="card__dev">
+          <div class="txt__dev">
+            <h2>Conheça os nossos</h2>
+
+            <span> Desenvolvedores </span>
+
+            <p>Saíba quem participou no desenvolvimento do GameWired.</p>
+          </div>
+
+          <div class="devs-link">
+            <a
+              href="https://github.com/guilhermebianchini"
+              class="devs"
+              target="_blank"
+            >
+              Guilherme Bianchini
+            </a>
+
+            <a href="https://github.com/juhxf" class="devs" target="_blank">
+              Júlia Oliveira
+            </a>
+
+            <a href="https://github.com/L-d3v" class="devs" target="_blank">
+              Luiz Jeronimo
+            </a>
+
+            <a href="https://github.com/PedroHsix" class="devs" target="_blank">
+              Pedro Henrique
+            </a>
+
+            <a
+              href="https://github.com/pedromelquiades"
+              class="devs"
+              target="_blank"
+            >
+              Pedro Melquiades
+            </a>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-head">
+        <span>GameWired</span>
+        <img src="/src/imgs/Logo.svg" alt="Logo-GameWired" />
+      </div>
+
+      <div class="description">
+        <p>Projeto de Extensão.</p>
+      </div>
+
+      <div class="infos">
+        <div class="about">
+          <p>Sobre:</p>
+
+          <ul>
+            <li>
+              <a href="">Sobre nós</a>
+            </li>
+
+            <li>
+              <a href="">Contato</a>
+            </li>
+
+            <li>
+              <a href="">Suporte</a>
+            </li>
+
+            <li>
+              <a href="https://gamewiredfaq.netlify.app/">FAQ</a>
+            </li>
+
+            <li>
+              <a href="./assets/pages/Footer/Identidade/ident.html"
+                >Identidade</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sections">
+          <p>Navegação:</p>
+
+          <ul>
+            <li>
+              <a href="#home">Home</a>
+            </li>
+
+            <li>
+              <a href="./assets/pages/News/news.html"> Notícias </a>
+            </li>
+
+            <li>
+              <a href="./assets/pages/Plataforms/plataforms.html"
+                >Plataformas</a
+              >
+            </li>
+
+            <li>
+              <a href="./assets/pages/Community/community.html">Comunidade</a>
+            </li>
+
+            <li>
+              <a href="./assets/pages/SingUp/Register/register.html"
+                >Cadastre-se</a
+              >
+            </li>
+            <li>
+              <a href="./assets/pages/SingUp/Login/login.html"> Login </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="social">
+          <p>Social:</p>
+
+          <ul>
+            <li>
+              <a href="">
+                <i class="ph ph-instagram-logo"></i>
+                Instagram
+              </a>
+            </li>
+
+            <li>
+              <a href="">
+                <i class="ph ph-x-logo"></i>
+                Twitter X
+              </a>
+            </li>
+
+            <li>
+              <a href="">
+                <i class="ph ph-dev-to-logo"></i>
+                Dev
+              </a>
+            </li>
+
+            <li>
+              <a href="">
+                <i class="ph ph-github-logo"></i>
+                GitHub
+              </a>
+            </li>
+
+            <li>
+              <a href=""
+                ><i class="ph ph-discord-logo"></i>
+                Discord
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="direitos">
+        <p>© 2024 GameWired. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="/assets/scripts/_temas.js"></script>
+    <script src="/assets/scripts/_navBar.js"></script>
+    <script src="/assets/scripts/_modal.js"></script>
+  </body>
+</html>

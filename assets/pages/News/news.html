@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      sizes="16x16 32x32 48x48"
+      type="image/png"
+      href="/src/imgs/Logo.svg"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
+
+    <link rel="stylesheet" href="/assets/styles/main.css" />
+
+    <link rel="stylesheet" href="./news.css" />
+
+    <title>GameWired | Notícias</title>
+  </head>
+
+  <body>
+    <div class="eclipse"></div>
+
+    <header class="main-header">
+      <nav class="main-nav">
+        <div class="nav__logo">
+          <a href="/index.html">
+            <img
+              src="/src/imgs/Logo.svg"
+              data-theme-image
+              data-dark-src="/src/imgs/Logo.svg"
+              data-light-src="/src/imgs/Logolight.svg"
+              alt="Exemplo"
+            />
+          </a>
+        </div>
+
+        <div class="nav__center">
+          <ul>
+            <li>
+              <a href="#news" class="abas"> Notícias </a>
+            </li>
+            <li>
+              <a href="/assets/pages/Plataforms/plataforms.html" class="abas">
+                Plataformas
+              </a>
+            </li>
+            <li>
+              <a href="/assets/pages/Community/community.html" class="abas">
+                Comunidade
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="nav__user">
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Alternar tema"
+          >
+            <i class="ph ph-moon-stars"></i>
+          </button>
+
+          <a href="/assets/pages/SingUp/Register/register.html">
+            <i class="bi bi-person-badge"></i>
+          </a>
+
+          <button
+            class="nav-button"
+            aria-label="Abrir menu de navegação"
+            onclick="openMenu()"
+          >
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar3"></span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="nav__mobile">
+        <a href="/assets/pages/SingUp/Register/register.html">
+          <i class="bi bi-person-badge"></i>
+        </a>
+
+        <ul>
+          <li>
+            <a href="#news" class="abas-mobile"> Notícias </a>
+          </li>
+
+          <li>
+            <a
+              href="/assets/pages/Plataforms/plataforms.html"
+              class="abas-mobile"
+            >
+              Plataformas
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/assets/pages/Community/community.html"
+              class="abas-mobile"
+            >
+              Comunidade
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="news">
+      <section class="search-container">
+        <h1>Notícias</h1>
+
+        <form action="" class="search__bar">
+          <input
+            type="search"
+            name="search"
+            placeholder="O que procura?"
+            class="search"
+          />
+          <button class="search-btn">
+            <i class="ph ph-magnifying-glass"></i>
+          </button>
+        </form>
+      </section>
+
+      <section class="container-cards">
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/resident-evil-9.webp"
+              alt="Resident Evil 9"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 10/06/2025 </span>
+
+            <h4>
+              Resident Evil 9: Requiem | Tudo sobre o novo game da franquia
+            </h4>
+
+            <p>
+              Durante o Sumer Game Fest, foi revelado o novo lançamento de
+              Resident Evil. A apresentação conta com um trailer mostrando
+              pontos importantes para os amantes da franquia.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-27.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/the-last-of-us-part-3.webp"
+              alt="The Last of Us Part 3"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 10/06/2025 </span>
+
+            <h4>
+              The Last of Us 3 | Showrunner sabe "algumas ideias" do terceiro
+              jogo
+            </h4>
+
+            <p>
+              Após entrevista com realizada pela BAFTA, surgem boatos de um novo
+              lançamento para o terceiro jogo.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-26.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/lol-spirit-blossom.webp"
+              alt="League of Legends - Spirit Blossom"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 09/06/2025 </span>
+
+            <h4>
+              LoL revela nova leva de skins Florescer Espiritual com foco
+              narrativo
+            </h4>
+
+            <p>
+              Riot revela oficialmente sua nova coleção de skins com temática
+              Spirit Blossom. Essa nova remessa combina referências mitológicas
+              com a narrativa integrada ao universo Runeterra.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-25.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/prince-of-persia.webp"
+              alt="Prince of Persia"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 08/06/2025 </span>
+
+            <h4>
+              Prince of Persia | Roguelike ganha trailer e data de lançamento da
+              versão final
+            </h4>
+
+            <p>
+              Após mais de um ano aberto com acesso antecipado, The Rogue Prince
+              of Persia vai ser finalmente lançado tendo previsão para agosto na
+              versão 1.0.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-24.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/superman-fortnite.webp"
+              alt="Superman no Fortnite"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 07/06/2025 </span>
+
+            <h4>
+              Superman | Fortnite confirma skin do herói do filme de James Gunn
+            </h4>
+
+            <p>
+              De acordo com a Epic Games será introduzido uma nova skin baseada
+              no Superman. Porém, até o momento segue sem data de laçamento.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-23.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/scott-pilgrim.webp"
+              alt="Scott Pilgrim"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 06/06/2025 </span>
+
+            <h4>
+              Scott Pilgrim EX é anunciado durante o Summer Game Fest; confira
+            </h4>
+
+            <p>
+              Durante Summer Game Fest é revelado pela Tribute Games um novo
+              jogo de Scott Pilgrim com a participação de Bryan Lee O'Malley.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-22.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/marvel-tokon.webp"
+              alt="Marvel Tokon"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 05/06/2025 </span>
+
+            <h4>
+              Marvel Tokon: Fighting Souls é o novo game de luta da Arc System
+            </h4>
+
+            <p>
+              Revelado nesta quarta-feira(04) pela Arc System Works o lançamento
+              de um novo jogo de luta. Tal revelação ocorreu durante o State of
+              Play da Sony Playstation.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-21.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/ghost-yotei.webp"
+              alt="Ghost of Yotei"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 04/06/2025 </span>
+
+            <h4>Ghost of Yotei terá apresentação em 22 de julho</h4>
+
+            <p>
+              Segundo as revelações feitas pela Sony, o jogo receberá uma
+              apresentação com foco nas mecânicas de jogabilidade, exploração,
+              combate e muito mais.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-20.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img src="/src/imgs/noticias/ryze.webp" alt="Ryze" />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 02/06/2025 </span>
+
+            <h4>
+              League of Legends | Dublador de Ryze quer mais do personagem no
+              game
+            </h4>
+
+            <p>
+              "Ele é muito mais intenso e forte do que parece", diz dublador de
+              Jorge Vasconcellos.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-19.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/pokemon-go-arraia.webp"
+              alt="Pokémon GO"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 03/06/2025 </span>
+
+            <h4>
+              Pokémon GO terá nova edição do Arraiá com XP duplicada e evento de
+              captura
+            </h4>
+
+            <p>
+              A edição do Arraiá deste ano conta com a inclusão de pontos de
+              experiências duplicadas ao capturar um Pokémon, pesquisa de campos
+              exclusivas e muito mais!
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-18.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img src="/src/imgs/noticias/hi-fi-rush.webp" alt="Hi Fi Rush" />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 02/06/2025 </span>
+
+            <h4>Estúdio de Hi-Fi Rush está trabalhando em novo jogo</h4>
+
+            <p>Game foi sucesso de críticas em seu lançamento em 2023.</p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-17.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/the-witcher-4.webp"
+              alt="The Witcher 4"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 02/06/2025 </span>
+
+            <h4>
+              The Witcher 4 será demonstrado em apresentação da Unreal Engine
+            </h4>
+
+            <p>
+              Novidades a caminho para o The Witcher 4! A CD Projekt firma nova
+              parceria com a Epic Games com fim promover e demonstrar o jogo.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-16.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img src="/src/imgs/noticias/concord.webp" alt="Concord" />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 31/05/2025 </span>
+
+            <h4>
+              Órgão trabalhista critica Sony por fechar estúdio de Concord
+            </h4>
+
+            <p>
+              Decisão foi tomada para aumentar monopólio, segundo a organização,
+              e prejudica diretamente trabalhadores do mercado de videogames.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-15.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/nintendo-music.webp"
+              alt="Nintendo Music"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 30/05/2025 </span>
+
+            <h4>Nintendo lança oficialmente App de músicas</h4>
+
+            <p>
+              O Nintendo Music já está disponível para ser baixados em
+              dispositivos Android e iOS. Será possível ouvir músicas e trilhas
+              sonoras de todos os seus jogos.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-14.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/elden-ring-nightreign.webp"
+              alt="Elden Ring: Nightreign"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 30/05/2025 </span>
+
+            <h4>
+              Elden Ring: Nightreign bate 2 milhões de cópias vendidas no dia do
+              lançamento
+            </h4>
+
+            <p>
+              Em seu primeiro dia pós-lançamento, a nova DLC de Elden Ring bate
+              os 2 milhões de cópias já vendidas, tornando-o um dos maiores
+              sucessos de 2025.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-13.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/hideo-kojima-bgs.webp"
+              alt="Hideo Kojima na BGS"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 29/05/2025 </span>
+
+            <h4>Hideo Kojima é confirmado na BGS 2025</h4>
+
+            <p>
+              Diretor participará de atrações em dois dias de evento. Saiba
+              quais serão os dias e se prepare para a BGS 2025!
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-12.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/death-stranding.webp"
+              alt="Death Stranding vai ganhar anime"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 28/05/2025 </span>
+
+            <h4>Death Stranding vai ganhar anime, diz Hideo Kojima</h4>
+
+            <p>
+              De acordo com Hideo Kojima, a franquia de Death Stranding será o
+              próximo game a receber adaptação para animação.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-11.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/fortnite-sabrina.webp"
+              alt="Fortnite e Sabrina Carpenter"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 27/05/2025 </span>
+
+            <h4>Evento com Sabrina Carpenter começa no fim de maio</h4>
+
+            <p>
+              Um novo festival chega ao Fortnite no final de maio (30), que
+              contará com a presença de Sabrina Carpenter que testará o ritmo
+              dos jogadores.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-10.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/capcom.webp"
+              alt="Capcom"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 26/05/2025 </span>
+
+            <h4>Capcom abrirá novo escritório no Japão e expandirá equipes</h4>
+
+            <p>
+              A expansão dos escritórios da desenvolvedora de jogos chega a
+              Osaka, no Japão.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-09.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/pokemon-vendas.webp"
+              alt="Pokemon superando records"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 24/05/2025 </span>
+
+            <h4>
+              Franquia Pokémon ultrapassa a marca de 489 milhões de jogos
+              vendidos
+            </h4>
+
+            <p>
+              Mesmo após anos de seu lançamento, Pokémon continua sendo uma das
+              franquias mais populares e bem-sucedida dos tempos.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-08.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/mortal-kombat-1.webp"
+              alt="Mortal Kombat 1"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 23/05/2025 </span>
+
+            <h4>Warner desiste de lançar mais conteúdo para o jogo.</h4>
+
+            <p>
+              Warner quer que a NetherRealm foque agora no seu próximo grande
+              projeto e não mais em produzir novos conteúdos para o Mortal
+              Kombat 1.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-07.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/free-fire-solara.webp"
+              alt="Free Fire Solara"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 22/05/2025 </span>
+
+            <h4>
+              Em comemoração ao 8° aniverśario, Free Fire apresentará o novo
+              mapa "Solara"
+            </h4>
+
+            <p>
+              Após 3 anos sem receber um novo mapa, Free Fire comemora seu 8˚
+              (oitavo) aniversário com o lançamento do mapa Solara.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-06.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/rayman-legends.webp"
+              alt="Rayman"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 21/05/2025 </span>
+
+            <h4>Ubisoft em busca de desenvolvedores para um novo Rayman?</h4>
+
+            <p>
+              O estúdio Ubisoft Milan, responsável por Mario + Rabbids, está
+              aumentando sua equipe para fazer um jogo AAA da franquia Rayman.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-05.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/fortnite-appstore.webp"
+              alt="Fortnite na App Store"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 21/05/2025 </span>
+
+            <h4>Fortnite retorna para a App Store americana após 4 anos</h4>
+
+            <p>
+              Depois de 4 anos afastado da AppleStore, Fortnite retorna à loja
+              dos aparelhos iOS.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-04.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/mario-world.webp"
+              alt="Mario Kart World"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 21/05/2025 </span>
+
+            <h4>Mario Kart foi originalmente planejado para Switch 1</h4>
+
+            <p>
+              De acordo com o diretor de programação do jogo Kenta Sato, o
+              principal lançamento para o Switch 2 foi originalmente planejado
+              para o Swicth 1.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-03.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/clash-of-clans-netflix.webp"
+              alt="Clash of Clans na Netflix"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 20/05/2025 </span>
+
+            <h4>Clash of Clans irá receber série na Netflix</h4>
+
+            <p>
+              Sendo um dos principais sucessos de dispositivos mobile, o jogo
+              Clash of Clans irá receber uma série original da Netflix.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-02.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+
+        <article class="card-news">
+          <div class="img-card">
+            <img
+              src="/src/imgs/noticias/switch-2-oled.webp"
+              alt="Switch2 com telas OLED"
+              loading="lazy"
+            />
+          </div>
+          <div class="txt-card">
+            <span class="date"> 20/05/2025</span>
+
+            <h4>
+              Novo acordo entre Nintendo e Samsung para o produção do Swicth 2
+              OLED
+            </h4>
+
+            <p>
+              Nintendo e Samsung unindo forças para a produção do novo Swicth.
+              Essa parceria inclui também a produção de processadores para o
+              dispositivo.
+            </p>
+
+            <a
+              href="/assets/pages/News/notices/noticia-01.html"
+              class="link-card"
+            >
+              Leia mais
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-head">
+        <span>GameWired</span>
+        <img src="/src/imgs/Logo.svg" alt="Logo-GameWired" />
+      </div>
+
+      <div class="description">
+        <p>Projeto de Extensão.</p>
+      </div>
+
+      <div class="infos">
+        <div class="about">
+          <p>Sobre:</p>
+
+          <ul>
+            <li>
+              <a href="">Sobre nós</a>
+            </li>
+
+            <li>
+              <a href="">Contato</a>
+            </li>
+
+            <li>
+              <a href="">Suporte</a>
+            </li>
+
+            <li>
+              <a href="https://gamewiredfaq.netlify.app/">FAQ</a>
+            </li>
+
+            <li>
+              <a href="./assets/pages/Footer/Identidade/ident.html"
+                >Identidade</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="sections">
+          <p>Navegação:</p>
+
+          <ul>
+            <li>
+              <a href="/index.html">Home</a>
+            </li>
+
+            <li>
+              <a href="#news"> Notícias </a>
+            </li>
+
+            <li>
+              <a href="/assets/pages/Plataforms/plataforms.html">Plataformas</a>
+            </li>
+
+            <li>
+              <a href="/assets/pages/Community/community.html">Comunidade</a>
+            </li>
+
+            <li>
+              <a href="/assets/pages/SingUp/Register/register.html"
+                >Cadastre-se</a
+              >
+            </li>
+            <li>
+              <a href="/assets/pages/SingUp/Login/login.html">Login</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="social">
+          <p>Social:</p>
+
+          <ul>
+            <li>
+              <a href="">
+                <i class="ph ph-instagram-logo"></i>
+                Instagram
+              </a>
+            </li>
+
+            <li>
+              <a href="">
+                <i class="ph ph-x-logo"></i>
+                Twitter X
+              </a>
+            </li>
+
+            <li>
+              <a href="">
+                <i class="ph ph-dev-to-logo"></i>
+                Dev
+              </a>
+            </li>
+
+            <li>
+              <a href="">
+                <i class="ph ph-github-logo"></i>
+                GitHub
+              </a>
+            </li>
+
+            <li>
+              <a href=""
+                ><i class="ph ph-discord-logo"></i>
+                Discord
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="direitos">
+        <p>© 2024 GameWired. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="/assets/scripts/_navBar.js"></script>
+    <script src="/assets/scripts/_temas.js"></script>
+  </body>
+</html>
