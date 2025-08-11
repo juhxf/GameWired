@@ -46,7 +46,7 @@
 
 </div>
 
-  <h3>Autores</h3>
+  <h3>Autores Iniciais:</h3>
   <ul>
     <li>
       <a>Guilherme Bianchini</a>
@@ -65,4 +65,4 @@
     </li>
   </ul>
 
-  <p align="center"><strong>GameWired © 2023 - Projeto Acadêmico para Demonstração de Habilidades em Desenvolvimento Web</strong></p>
+  <p align="center"><strong>GameWired © 2024 - Projeto Acadêmico para Demonstração de Habilidades em Desenvolvimento Web</strong></p>
