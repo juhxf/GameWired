@@ -65,4 +65,14 @@
     </li>
   </ul>
 
+  <h3>Novos Integrantes:</h3>
+  <ul>
+    <li>
+      <a>Paulo Tadeu Silva</a>
+    </li>
+    <li>
+      <a>Tiago Guimarães</a>
+    </li>
+  </ul>
+
   <p align="center"><strong>GameWired © 2024 - Projeto Acadêmico para Demonstração de Habilidades em Desenvolvimento Web</strong></p>
