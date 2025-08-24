@@ -52,13 +52,13 @@
       <a>Guilherme Bianchini</a>
     </li>
     <li>
-      <a>Júlia Oliveira</a>
+      <a>Júlia de Oliveira</a>
     </li>
     <li>
-      <a>Luiz Jeronimo</a>
+      <a>Luiz Miguel Jeronimo</a>
     </li>
     <li>
-      <a>Pedro Henrique</a>
+      <a>Pedro Henrique Idalino</a>
     </li>
     <li>
        <a>Pedro Melquiades</a>
