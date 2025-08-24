@@ -22,6 +22,13 @@
   }
 }
 
+.container-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5em;
+  justify-items: center;
+}
+
 .news {
   display: flex;
   flex-direction: column;
@@ -42,12 +49,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 80vh;
+  height: 75vh;
   width: 100%;
   margin-bottom: 5em;
 
   h3 {
     margin: 2vh 0;
+    margin-bottom: 1em;
+    background-color: #191919;
+    display: inline-block;
+    justify-content: center;
+    padding: 3px 10px;
+    color: white;
+    font-size: 25px;
+    border-radius: 50px;
   }
 
   .carousel {
@@ -55,20 +70,38 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
+  }
+
+  .arrow {
+    position: absolute;
+    transform: translateY(-50%);
+    background: rgba(27, 20, 46, 0.4);
+    align-items: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 10%;
+    z-index: 5;
+  }
+
+  .arrow.left {
+    left: -40px;
+  }
+
+  .arrow.right {
+    right: -40px;
   }
 
   .carousel-wrapper {
     display: flex;
-    height: 58vh;
+    height: 65vh;
     width: 100%;
-    scroll-snap-type: proximity;
-    overflow-x: auto;
-    overflow-y: hidden;
     padding: 0;
-    scrollbar-color: rgb(146, 127, 255) #11ffee00;
-    scrollbar-width: thin;
+    overflow: hidden;
   }
 }
 
