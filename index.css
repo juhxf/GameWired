@@ -9,7 +9,7 @@
 }
 
 .welcome {
-  height: 70vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,11 +37,7 @@
   height: 100%;
   width: 80%;
   margin-bottom: 5em;
-
-  .efect {
-    text-align: center;
-    width: 85%;
-  }
+  margin-top: 5em;
 }
 
 .games {
@@ -53,16 +49,10 @@
   width: 100%;
   margin-bottom: 5em;
 
-  h3 {
-    margin: 2vh 0;
-    margin-bottom: 1em;
-    background-color: #191919;
-    display: inline-block;
-    justify-content: center;
-    padding: 3px 10px;
-    color: white;
-    font-size: 25px;
-    border-radius: 50px;
+  h2 {
+    margin: 1vh 0;
+    margin-bottom: 0.5em;
+    padding: 1px 5px;
   }
 
   .carousel {
