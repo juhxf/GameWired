@@ -1,0 +1,17 @@
+/*Bases*/
+
+@import "/front-backend/views/src/assets/styles/bases/_reset.css";
+@import "/front-backend/views/src/assets/styles/bases/_tipografia.css";
+@import "/front-backend/views/src/assets/styles/bases/_light.css";
+@import "/front-backend/views/src/assets/styles/bases/_global.css";
+
+/*Componentes*/
+
+@import "/front-backend/views/src/assets/styles/components/_cards.css";
+@import "/front-backend/views/src/assets/styles/components/_buttons.css";
+@import "/front-backend/views/src/assets/styles/components/_paletas.css";
+
+/*Layout*/
+
+@import "/front-backend/views/src/assets/styles/layouts/_navBar.css";
+@import "/front-backend/views/src/assets/styles/layouts/_footer.css";
