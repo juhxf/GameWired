@@ -18,23 +18,26 @@ footer {
   }
 
   img {
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
   }
-}
-
-.description {
-  color: var(--bg-Font);
-  margin-bottom: 1vh;
 }
 
 .infos {
-  display: grid;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30%;
 
   .about {
+
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      gap: 40%;
+    }
+
     p {
       color: var(--bg-Font);
     }
@@ -69,7 +72,19 @@ footer {
     }
   }
 
-  .sections {
+  /*.sections {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin-bottom: 1.5rem;
+
+    ul {
+      display: flex;
+      list-style: none;
+      gap: 10%;
+    }
+
     p {
       color: var(--bg-Font);
     }
@@ -102,42 +117,7 @@ footer {
         }
       }
     }
-  }
-
-  .social {
-    p {
-      color: var(--bg-Font);
-    }
-
-    li {
-      a {
-        font-size: clamp(0.5rem, 0.8vw + 0.5rem, 1rem);
-        position: relative;
-
-        &:hover {
-          color: var(--bg-Button);
-          transition: 0.4s;
-        }
-
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: var(--bg-Button);
-          transition: width 0.4s ease-in-out;
-        }
-
-        &:hover::after {
-          width: 100%;
-          background: var(--bg-Button);
-          transition: width 0.4s ease-in-out;
-        }
-      }
-    }
-  }
+  }*/
 }
 
 .direitos {
@@ -146,6 +126,10 @@ footer {
   justify-content: center;
   color: var(--bg-Font);
   padding: 3em 0 2em;
+
+  p {
+    font-size: 16px;
+  }
 }
 
 @media screen and (max-width: 640px) {

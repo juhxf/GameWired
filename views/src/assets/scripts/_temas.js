@@ -80,6 +80,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 */
 
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('#theme-toggle')
+  if (!btn) return
+
+  toggleTheme()
+})
+
+function toggleTheme() {
+  const body = document.body
+  const dark = body.classList.toggle('dark')
+  localStorage.setItem('theme', dark ? 'dark' : 'light')
+}
+
 // Função para atualizar imagens
 function updateThemeImages(isLightTheme) {
   document.querySelectorAll("[data-theme-image]").forEach((element) => {

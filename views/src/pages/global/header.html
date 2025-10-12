@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/views/src/assets/styles/main.css"/>
+    <title>Header</title>
+</head>
+<body>
+    <div class="eclipse"></div>
+
+    <header class="main-header">
+        <nav class="main-nav">
+            <div class="nav__logo">
+                <a href="/index.html">
+                    <img src="/views/src/assets/imgs/Logo.svg" data-theme-image data-dark-src="/views/src/assets/imgs/Logo.svg" data-light-src="/views/src/assets/imgs/Logolight.svg" alt="Exemplo" />
+                </a>
+            </div>
+
+            <div class="nav__center">
+                <ul>
+                    <li> <a href="/views/src/pages/news.html" class="abas"> Notícias </a> </li>
+                    <li>
+                        <a href="" class="abas"> Plataformas </a>
+                        <i class="arrow"></i>
+                        <ul class="platforms-list">
+                            <li><a href="/views/src/pages/computer.html" class="abas">PC</a></li>
+                            <li><a href="/views/src/pages/console.html" class="abas">Console</a></li>
+                            <li><a href="/views/src/pages/mobile.html" class="abas">Mobile</a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="/views/src/pages/community.html" class="abas"> Comunidade </a> </li>
+                </ul>
+            </div>
+
+            <div class="nav__user">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+                    <i class="ph ph-moon-stars"></i>
+                </button>
+
+                <a href="/views/src/pages/register.html">
+                    <i class="bi bi-person-badge"></i>
+                </a>
+
+                <button class="nav-button" aria-label="Abrir menu de navegação" onclick="openMenu()">
+                    <span class="bar bar1"></span>
+                    <span class="bar bar2"></span>
+                    <span class="bar bar3"></span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="nav__mobile">
+            <a href="/views/src/pages/register.html">
+                <i class="bi bi-person-badge"></i>
+            </a>
+
+            <ul>
+                <li>
+                    <a href="/views/src/pages/news.html" class="abas-mobile">
+                        Notícias
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/views/src/pages/plataforms.html" class="abas-mobile">
+                        Plataformas
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/views/src/pages/community.html" class="abas-mobile">
+                        Comunidade
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <script src="/views/src/assets/scripts/_navBar.js"></script>
+    <script src="/views/src/assets/scripts/_temas.js"></script>
+</body>
+</html>
