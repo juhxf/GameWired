@@ -7,6 +7,8 @@
   height: 100vh;
 
   .txt-register {
+    margin-top: 6%;
+
     img {
       width: 500px;
       height: 500px;
@@ -28,6 +30,7 @@
       justify-content: center;
       align-items: center;
       margin-bottom: 1vh;
+
       a {
         position: absolute;
         right: 5%;
@@ -65,6 +68,7 @@
           font-size: 1rem;
         }
       }
+
       .login {
         display: flex;
         align-items: center;
@@ -76,7 +80,7 @@
 
         a {
           color: var(--bg-Button);
-          text-decoration: underline;
+          text-decoration: none;
           padding: 0 0.5em;
         }
       }
@@ -110,6 +114,7 @@
   #register {
     .container-register {
       width: 90%;
+
       .card-register {
         width: 100%;
         position: relative;
@@ -145,6 +150,7 @@
             font-size: 1rem;
           }
         }
+
         .login {
           display: flex;
           align-items: center;

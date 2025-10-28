@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,6 +21,7 @@
 
   <title>GameWired | Comunidade</title>
 </head>
+
 <body>
   <div id="header"></div>
 
@@ -28,174 +30,73 @@
       <aside class="left">
         <div class="profile">
           <div class="user">
-            <img src="/views/src/assets/imgs/comunidade/users/users1.webp" alt="Profile-photo-user" />
-
+            <img src="/views/src/assets/imgs/comunidade/users/users1.webp" alt="profile-photo-user" />
             <h4>Dark Knight</h4>
           </div>
 
-          <label for="create-post" class="btn-user">Criar Publicação</label>
+          <button type="button" class="community-button" id="abrirModalBtn">Criar Publicação<i class="bi bi-plus-circle"></i></button>
 
-          <label for="see-posts" class="btn-user">Minhas Publicações</label>
+          <button type="button" class="community-button">Minhas Publicações<i class="bi bi-person-lines-fill"></i></button>
 
-          <label for="see-profile" class="btn-user">Meu Perfil</label>
+          <button type="button" class="community-button">Meu Perfil<i class="bi bi-person-circle"></i></button>
+        </div>
+
+        <div class="community-select">
+          <div id="catg-select">
+            <label for="">Escolha um jogo abaixo para filtrar:</label>
+
+            <div class="community-filter">
+              <div id="select-button">
+                <div id="selected-value">Selecione</div>
+
+                <div id="chevrons">
+                  <i class="bi bi-chevron-down"></i>
+                  <i class="bi bi-chevron-up"></i>
+                </div>
+              </div>
+
+              <button id="filtrar">Filtrar</button>
+            </div>
+          </div>
         </div>
       </aside>
 
-      <section class="middle">       
-        <article class="pubs">
-          <div class="profile-user">
-            <img src="/views/src/assets/imgs/comunidade/users/users7.webp" alt="Profile-photo-user" />
-            <h4>kadu</h4>
-          </div>
+      <section class="middle" id="postsContainer">
+        <h1>Comunidade</h1>
 
-          <div class="info-pub">
-            <p>
-              Animal Crossing ainda é meu lugar de paz. Tô reformando minha
-              ilha toda com o tema "café ao ar-livre". Só queria que a
-              Nintendo lançasse mais eventos para dar uma agitada.
-            </p>
-            <img src="/views/src/assets/imgs/comunidade/games/animal-crossing.webp" alt="Animal Crossing"
-              loading="lazy" />
+        <div id="modal" class="modal">
+          <div class="modal-content">
+            <form id="postForm">
+              <input type="text" id="titulo" placeholder="Título" required>
 
-            <div class="action-button">
-              <div class="intection">
-                <button>
-                  <i class="bi bi-heart">
-                    <small>1.509</small>
-                  </i>
-                </button>
+              <select id="categoria" required>
+                <option value="">Carregando categorias...</option>
+              </select>
 
-                <button>
-                  <i class="bi bi-chat-dots">
-                    <small>863</small>
-                  </i>
-                </button>
+              <textarea id="conteudo" placeholder="O que está acontecendo?" required></textarea>
 
-                <button>
-                  <i class="bi bi-send"></i>
-                </button>
+              <label>Deseja adicionar uma imagem?</label>
+              <input type="file" id="imagem" accept="image/*">
+
+              <div class="postButtons">
+                <button type="button" id="fecharModal" class="close">Voltar</button>
+                <button type="submit">Publicar</button>
               </div>
-
-              <div class="save">
-                <button>
-                  <i class="bi bi-bookmark-plus"></i>
-                </button>
-              </div>
-            </div>
+            </form>
           </div>
-        </article>
-
-        <article class="pubs">
-          <div class="profile-user">
-            <img src="/views/src/assets/imgs/comunidade/users/users9.webp" alt="Profile-photo-user" />
-            <h4>de_1uxe1</h4>
-          </div>
-
-          <div class="info-pub">
-            <p>
-              Voltei para o Stardew Valley por causa da att 1.6. O jogo
-              continua perfeito. As novas ferramentas e eventos deram vida
-              nova à fazenda. E agora com mods, tá ainda mais viciante.
-            </p>
-            <img src="/views/src/assets/imgs/comunidade/games/stardew.webp" alt="Stardew Valley 1.6" loading="lazy" />
-
-            <div class="action-button">
-              <div class="intection">
-                <button>
-                  <i class="bi bi-heart">
-                    <small>1.509</small>
-                  </i>
-                </button>
-
-                <button>
-                  <i class="bi bi-chat-dots">
-                    <small>863</small>
-                  </i>
-                </button>
-
-                <button>
-                  <i class="bi bi-send"></i>
-                </button>
-              </div>
-
-              <div class="save">
-                <button>
-                  <i class="bi bi-bookmark-plus"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="pubs">
-          <div class="profile-user">
-            <img src="/views/src/assets/imgs/comunidade/users/users11.webp" alt="Profile-photo-user" />
-            <h4>t0fu_luv</h4>
-          </div>
-
-          <div class="info-pub">
-            <p>
-              Don't Starve Together é um jogo incrível e divertido, onde
-              qualquer coisa pode te matar kkkkkk
-            </p>
-
-            <div class="action-button">
-              <div class="intection">
-                <button>
-                  <i class="bi bi-heart">
-                    <small>1.509</small>
-                  </i>
-                </button>
-
-                <button>
-                  <i class="bi bi-chat-dots">
-                    <small>863</small>
-                  </i>
-                </button>
-
-                <button>
-                  <i class="bi bi-send"></i>
-                </button>
-              </div>
-
-              <div class="save">
-                <button>
-                  <i class="bi bi-bookmark-plus"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
+        </div>
       </section>
-
-      <aside class="right">
-
-        <div class="sidebar">
-          <h3>Categorias</h3>
-
-          <a href="" class="side-item">
-            <p>Valorant</p>
-          </a>
-          <a href="" class="side-item">
-            <p>CS: Global Offensive</p>
-          </a>
-          <a href="" class="side-item">
-            <p>League of Legends</p>
-          </a>
-          <a href="" class="side-item">
-            <p>Dota 2</p>
-          </a>
-        </div>
-
-      </aside>
     </section>
   </main>
 
   <div id="footer"></div>
 
+  <script src="/views/src/pages/scripts/community.js"></script>
   <script src="/views/src/assets/scripts/_navBar.js"></script>
   <script src="/views/src/assets/scripts/_temas.js"></script>
   <script src="/views/src/pages/global/global-js/global-footer-header.js"></script>
+  <script src="/server.js"></script>
 
 </body>
+
 </html>

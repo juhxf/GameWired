@@ -29,7 +29,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0; /* Remove margem superior padrão */
     font-weight: inherit; /* Herda o peso da fonte, ajuste depois */
-
 }
 
 p, pre, blockquote,

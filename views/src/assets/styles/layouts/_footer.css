@@ -3,7 +3,7 @@ footer {
   color: var(--bg-FooterFont);
   width: 100%;
   z-index: 100;
-  padding: 0 5em;
+  padding: 0 4em;
 }
 
 .footer-head {
@@ -35,7 +35,7 @@ footer {
       align-items: center;
       justify-content: center;
       list-style: none;
-      gap: 40%;
+      gap: 50%;
     }
 
     p {
@@ -71,53 +71,6 @@ footer {
       }
     }
   }
-
-  /*.sections {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-    margin-bottom: 1.5rem;
-
-    ul {
-      display: flex;
-      list-style: none;
-      gap: 10%;
-    }
-
-    p {
-      color: var(--bg-Font);
-    }
-
-    li {
-      a {
-        font-size: clamp(0.5rem, 0.8vw + 0.5rem, 1rem);
-        position: relative;
-
-        &:hover {
-          color: var(--bg-Button);
-          transition: 0.4s;
-        }
-
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: var(--bg-Button);
-          transition: width 0.4s ease-in-out;
-        }
-
-        &:hover::after {
-          width: 100%;
-          background: var(--bg-Button);
-          transition: width 0.4s ease-in-out;
-        }
-      }
-    }
-  }*/
 }
 
 .direitos {
@@ -125,27 +78,79 @@ footer {
   align-items: center;
   justify-content: center;
   color: var(--bg-Font);
-  padding: 3em 0 2em;
+  padding: 2em 0 1em;
 
   p {
     font-size: 16px;
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 1024px) {
   footer {
     padding: 0 2.5em;
   }
 
   .footer-head {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+      font-size: clamp(1.5rem, 2vw + 0.5rem, 1.5rem);
+      font-weight: 600;
+      color: var(--bg-Font);
+    }
+
     img {
-      height: 60px;
-      width: 60px;
+      height: 50px;
+      width: 50px;
     }
   }
 
   .infos {
     text-wrap: nowrap;
     gap: 8%;
+  }
+
+  .direitos {
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  footer {
+    padding: 0 2em;
+  }
+
+  .footer-head {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+      font-size: clamp(1rem, 2vw + 0.5rem, 1rem);
+      font-weight: 600;
+      color: var(--bg-Font);
+    }
+
+    img {
+      height: 35px;
+      width: 35px;
+    }
+  }
+
+  .infos {
+    text-wrap: nowrap;
+    gap: 8%;
+  }
+
+  .direitos {
+
+    p {
+      font-size: 12px;
+    }
   }
 }

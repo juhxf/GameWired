@@ -10,14 +10,25 @@
   bottom: 0;
 }
 
-.btn-user {
-  width: 20vw;
+.community-button {
+  width: 100%;
   text-wrap: nowrap;
-  background-color: var(--bg-Button);
-  border-radius: 100px;
+  background-color: var(--bg-Background);
+  border-radius: 10px;
   padding: 0.6em 1.2em;
   text-align: center;
-  color: white;
+  color: var(--bg-Font);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: 0.3s;
+
+  i {
+    display: none;
+  }
+}
+
+.community-button:hover {
+  color: var(--bg-Button);
 }
 
 .devs {
@@ -56,4 +67,64 @@
   border-radius: 8px;
   text-align: center;
   margin: 1vh 1vw;
+}
+
+@media screen and (max-width: 1024px) {
+  .community-button {
+    width: 100%;
+    text-wrap: nowrap;
+    background-color: var(--bg-Background);
+    border-radius: 10px;
+    padding: 0.6em 1.2em;
+    text-align: center;
+    color: var(--bg-Font);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+    font-size: 14px;
+
+    i {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .community-button {
+    width: 25%;
+    border-radius: 10px;
+    background: var(--bg-Card);
+    padding: 0.6em 1.2em;
+    text-align: center;
+    color: var(--bg-Font);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+    font-size: 0;
+
+    i {
+      display: flex;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .community-button {
+    width: 25%;
+    border-radius: 10px;
+    background: var(--bg-Card);
+    padding: 0.6em 1.2em;
+    text-align: center;
+    color: var(--bg-Font);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+    font-size: 0;
+
+    i {
+      display: flex;
+      font-size: 1rem;
+    }
+  }
 }

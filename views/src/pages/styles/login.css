@@ -8,6 +8,8 @@
 
   .txt-login {
     text-align: center;
+    margin-top: 6%;
+
     img {
       width: 500px;
       height: 500px;
@@ -69,6 +71,7 @@
         font-size: 1rem;
       }
     }
+
     .register {
       display: flex;
       align-items: center;
@@ -80,7 +83,7 @@
 
       a {
         color: var(--bg-Button);
-        text-decoration: underline;
+        text-decoration: none;
         padding: 0 0.5em;
       }
     }
@@ -145,6 +148,7 @@
             font-size: 1rem;
           }
         }
+
         .register {
           display: flex;
           align-items: center;
