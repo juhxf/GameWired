@@ -1,50 +1,30 @@
-const form = document.querySelector('#form')
+const form = document.querySelector("#form")
 
-const users = [
-    { 
-        id: 'adm',
-        email: 'admin@gmail.com', 
-        password: 'Admin123!'
-    },
-    { 
-        id: 'teste',
-        email: 'teste@gmail.com', 
-        password: 'Teste123!', 
-    }
-]
-
-form.addEventListener('submit', function(e){
+form.addEventListener("submit", async (e) => {
     e.preventDefault()
 
     const fields = [
-        {
-            id: 'email',
-            validator: emailIsValid
-        },
-        {
-            id: 'password',
-            validator: passwordIsSecure
-        },
+        { id: 'email', validator: emailIsValid },
+        { id: 'senha', validator: senhaIsSecure }
     ]
 
     const errorIcon = '<i class="fa-solid fa-triangle-exclamation"></i>'
 
     let formIsValid = true
 
-    fields.forEach(function(field){
+    fields.forEach(function (field) {
         const input = document.getElementById(field.id)
         const inputBox = input.closest('.input-box')
         const inputValue = input.value.trim()
-
         const errorSpan = inputBox.querySelector('.error')
-        errorSpan.innerHTML = ''
 
+        errorSpan.innerHTML = ''
         inputBox.classList.remove('invalid')
         inputBox.classList.add('valid')
 
         const fieldValidator = field.validator(inputValue)
 
-        if(!fieldValidator.isValid){
+        if (!fieldValidator.isValid) {
             errorSpan.innerHTML = `${errorIcon} ${fieldValidator.errorMessage}`
             inputBox.classList.add('invalid')
             inputBox.classList.remove('valid')
@@ -52,35 +32,44 @@ form.addEventListener('submit', function(e){
         }
     })
 
-    if(!formIsValid) return
+    if (!formIsValid) return
 
-    // Aqui faz a validação no banco de dados, procurando email e senha exatos
-    const emailInput = document.getElementById('email').value.trim()
-    const passwordInput = document.getElementById('password').value.trim()
+    const data = {
+        email: document.getElementById('email').value,
+        senha: document.getElementById('senha').value
+    }
 
-    const user = users.find(u => u.email === emailInput && u.password === passwordInput)
-    if(!user){
-        // Email e/ou senha não encontrados no banco
+    const url = "http://localhost:3000/users/login";
+
+    const res = await fetch(url, {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+
+    const result = await res.json()
+    console.log(result)
+
+    if (!res.ok) {
         const emailInputBox = document.getElementById('email').closest('.input-box')
-        const passwordInputBox = document.getElementById('password').closest('.input-box')
+        const senhaInputBox = document.getElementById('senha').closest('.input-box')
 
-        emailInputBox.querySelector('.error').innerHTML = `${errorIcon} Email ou senha incorretos`
-        passwordInputBox.querySelector('.error').innerHTML = `${errorIcon} Email ou senha incorretos`
+        emailInputBox.querySelector('.error').innerHTML = "Email ou senha incorretos!"
+        senhaInputBox.querySelector('.error').innerHTML = "Email ou senha incorretos!"
 
         emailInputBox.classList.add('invalid')
-        passwordInputBox.classList.add('invalid')
-
+        senhaInputBox.classList.add('invalid')
         return
     }
 
-    alert(`Login realizado com sucesso! Bem-vindo(a), ${user.id}.`)
+    window.location.href = "/index.html"
 })
 
-function isEmpty(value){
+function isEmpty(value) {
     return value === ''
 }
 
-function emailIsValid(value){
+function emailIsValid(value) {
     const validator = {
         isValid: true,
         errorMessage: null
@@ -88,14 +77,14 @@ function emailIsValid(value){
 
     if (isEmpty(value)) {
         validator.isValid = false
-        validator.errorMessage = 'O e-mail é obrigatório'
+        validator.errorMessage = 'O e-mail é obrigatório!'
         return validator
     }
 
     return validator
 }
 
-function passwordIsSecure(value){
+function senhaIsSecure(value) {
     const validator = {
         isValid: true,
         errorMessage: null
@@ -103,7 +92,7 @@ function passwordIsSecure(value){
 
     if (isEmpty(value)) {
         validator.isValid = false
-        validator.errorMessage = 'A senha é obrigatória'
+        validator.errorMessage = 'A senha é obrigatória!'
         return validator
     }
 

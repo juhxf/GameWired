@@ -69,7 +69,7 @@
     align-items: center;
     justify-content: center;
     width: 10%;
-    gap: 0.6em;
+    gap: 1.5em;
     padding-right: 2em;
 
     .ph,
@@ -152,7 +152,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .main-nav {
     padding: 0 5em;
 
@@ -212,8 +212,26 @@
   }
 }
 
-@media screen and (max-width: 1023px) {
-  .nav__center {
-    display: hidden;
+@media screen and (max-width: 1024px) {
+  .main-nav {
+    padding: 0 5em;
+
+    .nav__center {
+      display: none;
+    }
+  }
+
+  .nav__user {
+    .ph {
+      font-size: 2.25em;
+    }
+
+    .bi {
+      display: flex;
+    }
+
+    .nav-button {
+      display: none;
+    }
   }
 }
