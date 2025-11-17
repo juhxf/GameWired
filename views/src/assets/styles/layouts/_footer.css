@@ -110,12 +110,13 @@ footer {
   .infos {
     text-wrap: nowrap;
     gap: 8%;
+    font-size: 18px;
   }
 
   .direitos {
 
     p {
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 }
@@ -145,12 +146,13 @@ footer {
   .infos {
     text-wrap: nowrap;
     gap: 8%;
+    font-size: 14px;
   }
 
   .direitos {
 
     p {
-      font-size: 12px;
+      font-size: 10px;
     }
   }
 }
