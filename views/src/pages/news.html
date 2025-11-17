@@ -26,9 +26,18 @@
   <main id="news">
     <section class="search-container">
       <h1>Notícias</h1>
+
+      <div class="filtros">
+        <select  id="filtro">
+          <option value="" disable selected hidden>Selecione</option>
+          
+          <option value="a-z">A-Z</option>
+          <option value="z-a">Z-A</option>
+        </select>
+      </div>
     </section>
 
-    <section class="container-cards">
+    <section class="container-cards" id="listaNoticias">
         <article class="card-news">
           <div class="img-card">
             <img src="/views/src/assets/imgs/noticias/resident-evil-9.webp" alt="Resident Evil 9" />
@@ -617,6 +626,7 @@
           </div>
         </article>
     </section>
+  <button class="ver-mais" id="verMais">Ver mais</button>
   </main>
 
   <div id="footer"></div>
@@ -625,6 +635,6 @@
   <script src="/views/src/assets/scripts/_temas.js"></script>
   <script src="/views/src/assets/scripts/_news-pages.js"></script>
   <script src="/views/src/pages/global/global-js/global-footer-header.js"></script>
-
+  <script src="scripts/news.js"></script>
 </body>
 </html>
