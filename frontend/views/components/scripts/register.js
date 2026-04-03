@@ -78,7 +78,7 @@ function nome_usuarioIsValid(value) {
 
   if (isEmpty(value)) {
     validator.isValid = false
-    validator.errorMessage = 'O nome é obrigatório e deve conter de 3 a 30 cacteres!'
+    validator.errorMessage = 'O nome de usuário é obrigatório!'
     return validator
   }
 
@@ -174,11 +174,11 @@ function senhaIsSecure(value) {
     validator.isValid = false
     validator.errorMessage = `
             Sua senha deve conter as menos: <br/>
-            8 dígitos <br/>
-            1 letra minúscula <br/>
-            1 letra maiúscula <br/>
-            1 número <br/>
-            1 caractere especial (@,$ ou #)
+            8 dígitos; <br/>
+            1 letra minúscula; <br/>
+            1 letra maiúscula; <br/>
+            1 número; <br/>
+            1 caractere especial (@,$ ou #).
         `
     return validator
   }

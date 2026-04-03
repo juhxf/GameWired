@@ -11,16 +11,6 @@ const profileController = {
                 return res.status(404).json({ mensagem: "Usuário não encontrado!" })
             }
 
-            if (perfil.preferencias) {
-                try {
-                    perfil.preferencias = JSON.parse(perfil.preferencias)
-                } catch {
-                    perfil.preferencias = []
-                }
-            } else {
-                perfil.preferencias = []
-            }
-
             return res.json(perfil)
         } catch (err) {
             return res.status(500).json({ erro: err.message })
@@ -30,17 +20,18 @@ const profileController = {
     async updateProfile(req, res) {
         try {
             const usuarioId = req.params.id
+            const { bio } = req.body
 
-            const { foto_perfil, bio, preferencias } = req.body
-
-            const preferenciasJSON = JSON.stringify(preferencias || [])
+            const fotoUrl = req.file ? req.file.path : null
 
             const perfilAtualizado = await profileRepository.updateProfile(
                 usuarioId,
-                foto_perfil,
-                bio,
-                preferenciasJSON
+                fotoUrl,
+                bio
             )
+
+            console.log("FILE:", req.file)
+            console.log("BODY:", req.body)
 
             return res.json(perfilAtualizado)
 

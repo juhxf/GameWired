@@ -1,10 +1,25 @@
+/*import 'dotenv/config'
+import pg from 'pg'
+
+export async function connPG() {
+  const pool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  })
+
+  const conn = await pool.connect()
+  return conn
+}*/
+
 import mssql from "mssql"
 
 const sqlConfig = {
   user: 'sa',
-  password: 'hash597648',
+  password: 'hash597684',
   server: 'DESKTOP-GUILHER\\SQLEXPRESS',
-  database: 'userData',
+  database: 'GameWired',
   options: {
     encrypt: false,
     trustServerCertificate: true

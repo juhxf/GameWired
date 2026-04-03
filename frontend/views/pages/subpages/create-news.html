@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="/frontend/public/assets/imgs/Logo.svg" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+  <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
+
+  <link rel="stylesheet" href="/frontend/views/components/styles/create-news.css" />
+
+  <title>GameWired | Publicação de Notícias</title>
+</head>
+<body>
+  <div id="header"></div>
+
+  <main id="create-area">
+    <section class="container">
+      <div class="card">
+        <form action="" id="postForm">
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" placeholder="Digite o título do post">
+
+          <label for="data">Data de publicação:</label>
+          <input type="date" id="data" required>
+
+
+          <label for="capa">Imagem de capa:</label>
+          <input type="file" id="capa" accept="image/*">
+
+
+          <label>Conteúdo:</label>
+
+          <div class="toolbar">
+            <button type="button" onclick="execCmd('bold')"><b>B</b></button>
+            <button type="button" onclick="execCmd('italic')"><i>I</i></button>
+            <button type="button" onclick="execCmd('underline')"><u>U</u></button>
+            <button onclick="addLink()">Link</button>
+          </div>
+
+          <div class="editor" id="editor" contenteditable="true"></div>
+
+          <button type="submit" class="btn-publish">Publicar Notícia</button>
+
+        </form>
+      </div>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <script src="/frontend/views/components/scripts/editor-tools.js"></script>
+  <script src="/frontend/views/components/scripts/create-news.js"></script>
+
+  <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
+  <script src="/frontend/public/assets/scripts/_temas.js"></script>
+  <script src="/frontend/public/assets/scripts/_navBar.js"></script>
+  <script src="/frontend/public/assets/scripts/_news-pages.js"></script>
+
+</body>
+</html>

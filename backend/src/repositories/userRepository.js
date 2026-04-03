@@ -1,6 +1,8 @@
-import { connect } from "../config/database.js"
-import authUserController from "../controllers/authUserController.js"
+import { connect } from "../config/connection.js"
 import sqltype from 'mssql'
+import authUserController from "../controllers/authUserController.js"
+/*import { connPG } from "../config/connection.js"
+const connect = await connPG()*/
 
 const userRepository = {
 
