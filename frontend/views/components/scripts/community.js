@@ -1,12 +1,12 @@
 // AUTENTICAÇÃO PARA PUBLICAR
 
 function communityAuth() {
-  const userId = localStorage.getItem("userId")
+  const token = localStorage.getItem("token")
 
   const CommunityOff = document.getElementById("CommunityLoggedOff")
   const CommunityIn = document.getElementById("CommunityLoggedIn")
 
-  if (userId) {
+  if (token) {
     CommunityOff.classList.add("hidden")
     CommunityIn.classList.remove("hidden")
   } else {
@@ -16,31 +16,55 @@ function communityAuth() {
 }
 
 function logout() {
-  localStorage.removeItem("userId")
+  localStorage.removeItem("token")
   window.location.reload()
 }
 
 document.addEventListener("DOMContentLoaded", communityAuth)
+
+// PEGANDO O ID DO USUÁRIO COM O JWT
+
+function getUserIdFromToken() {
+  const token = localStorage.getItem("token")
+  if (!token) return null
+
+  try {
+    const payloadBase64 = token.split(".")[1]
+      .replace(/-/g, "+")
+      .replace(/_/g, "/")
+
+    const decoded = JSON.parse(atob(payloadBase64))
+    return Number(decoded.id)
+  } catch (e) {
+    console.error("Erro ao decodificar token:", e)
+    return null
+  }
+}
 
 // CARREGAR PERFIL
 
 document.addEventListener("DOMContentLoaded", () => { carregarPerfil() })
 
 async function carregarPerfil() {
-  const userId = localStorage.getItem("userId")
+  const token = localStorage.getItem("token")
   const abrirPerfilUsuario = document.getElementById("abrirPerfil")
 
-  if (!userId) {
+  if (!token) {
     abrirPerfilUsuario.style.display = "none"
     return
   }
 
   try {
-    const res = await fetch(`http://localhost:3000/profile/${userId}`)
+    const res = await fetch(`http://localhost:3000/profile`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+
     const user = await res.json()
 
     abrirPerfilUsuario.addEventListener("click", () => {
-      window.location.href = `/frontend/views/pages/subpages/profile.html?id=${userId}`
+      window.location.href = `/frontend/views/pages/subpages/profile.html`
     })
 
     document.getElementById("nome_usuario").textContent = user.nome_usuario
@@ -55,28 +79,32 @@ async function carregarPerfil() {
 
 // MODAL DE POSTAGEM
 
+let editandoId = null
+
 document.addEventListener("DOMContentLoaded", () => {
   const openModal = document.querySelector(".openModal")
   const modal = document.querySelector(".modal")
   const closeModal = document.querySelector(".closeModal")
   const form = document.querySelector(".postForm")
-  let editandoId = null
 
   openModal.addEventListener("click", () => {
-    modal.style.display = "flex";
+    modal.style.display = "flex"
   })
 
   closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-    form.reset();
-    editandoId = null;
+    modal.style.display = "none"
+    form.reset()
+    editandoId = null
+
+    document.querySelector(".modal h3").textContent = "Faça sua postagem na comunidade!"
+    document.querySelector(".sentPost").textContent = "Enviar"
   })
 
   window.addEventListener("click", (event) => {
     if (event.target === modal) {
-      modal.style.display = "none";
-      form.reset();
-      editandoId = null;
+      modal.style.display = "none"
+      form.reset()
+      editandoId = null
     }
   })
 })
@@ -88,52 +116,85 @@ const form = document.querySelector("#form")
 form.addEventListener("submit", async (e) => {
   e.preventDefault()
 
-  const data = {
-    titulo_postagem: document.getElementById("titulo_postagem").value,
-    conteudo_postagem: document.getElementById("conteudo_postagem").value,
-    foto_postagem: document.getElementById("foto_postagem").value,
-    id: localStorage.getItem("userId"),
-    games_id: document.getElementById("categoria_postagem").value
-  }
+  const token = localStorage.getItem("token")
 
-  if (!data.titulo_postagem || !data.conteudo_postagem || !data.games_id) {
-    alert("Preencha todos os campos!")
+  const titulo = document.getElementById("titulo_postagem").value.trim()
+  const conteudo = document.getElementById("conteudo_postagem").value.trim()
+  const categoria = document.getElementById("categoria_postagem").value
+  const fileInput = document.getElementById("foto_postagem")
+
+  if (!token) {
+    Swal.fire({
+      icon: "error",
+      title: "Você precisa estar logado!",
+      text: "Faça login para criar uma postagem.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
     return
   }
 
-  const url = "http://localhost:3000/posts/create";
+  if (!titulo || !conteudo || !categoria) {
+    Swal.fire({
+      icon: "warning",
+      title: "Preencha todos os dados!",
+      text: "Os campos de título, jogo e conteúdo são obrigatórios.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
+  }
+
+  const formData = new FormData()
+  formData.append("titulo_postagem", titulo)
+  formData.append("conteudo_postagem", conteudo)
+  formData.append("games_id", categoria)
+
+  if (fileInput.files.length > 0) {
+    formData.append("foto_postagem", fileInput.files[0])
+  }
+
+  let url = "http://localhost:3000/posts"
+  let method = "POST"
+
+  if (editandoId) {
+    url = `http://localhost:3000/posts/${editandoId}`
+    method = "PATCH"
+  }
 
   try {
     const res = await fetch(url, {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify(data)
+      method: method,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
     })
 
     const result = await res.json()
 
     if (!res.ok) {
-
       Swal.fire({
-        icon: 'error',
-        title: `Erro!`,
-        text: result.message || `Erro ao criar postagem!`,
-        confirmButtonColor: '#8863e7',
-        confirmButtonText: 'Continuar'
+        icon: "error",
+        title: "Erro!",
+        text: result.message || "Erro ao criar postagem!",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
       })
-
-      Swal.fire({
-        icon: 'success',
-        title: `Sucesso!`,
-        text: `Postagem feita com sucesso!`,
-        confirmButtonColor: '#8863e7',
-        confirmButtonText: 'Continuar'
-      }).then(() => {
-        window.location.href = "community.html"
-      })
+      return
     }
+
+    Swal.fire({
+      icon: "success",
+      title: "Sucesso!",
+      text: result.message || "Postagem feita com sucesso!",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    }).then(() => {
+      window.location.href = "community.html"
+    })
   } catch (err) {
-    console.error(err)
+    console.error("Erro ao criar postagem:", err)
   }
 })
 
@@ -163,90 +224,230 @@ async function carregarJogos() {
   }
 }
 
-/*  async function carregarPosts() {
-    const response = await fetch("/api/posts");
-    const posts = await response.json();
+// FILTRO DE JOGOS
 
-    postsContainer.innerHTML = "<h2>Publicações Recentes</h2>";
+async function carregarJogosFiltro() {
+  try {
+    const res = await fetch('http://localhost:3000/games/select')
+    const games = await res.json()
 
-    posts.forEach((post) => {
-      const postDiv = document.createElement("div");
-      postDiv.classList.add("post");
-      const dataFormatada = new Date(post.dataPublicacao).toLocaleString("pt-BR");
+    const select = document.getElementById('select-button')
 
-      postDiv.innerHTML = `
-        <h3>${post.titulo}</h3>
-        <small><strong>Jogo:</strong> ${post.categoria}</small><br>
-        <small><strong>Publicado em:</strong> ${dataFormatada}</small>
-        <p>${post.conteudo}</p>
-        ${post.imagem ? `<img src="${post.imagem}" alt="Imagem do post">` : ""}
-        <div class="botoes">
-          <button onclick="editarPost(${post.id})">✏️ Editar</button>
-          <button onclick="deletarPost(${post.id})">🗑️ Deletar</button>
+    select.innerHTML = '<option value="">Selecione...</option>'
+
+    games.forEach(game => {
+      const option = document.createElement('option')
+      option.value = game.games_id
+      option.textContent = game.nome
+
+      select.appendChild(option)
+    })
+
+  } catch (err) {
+    console.error('Erro ao carregar jogos:', err)
+  }
+}
+
+// CARREGAR POSTAGENS
+
+async function carregarPosts(gameId = null) {
+  try {
+    let url = 'http://localhost:3000/posts'
+
+    if (gameId) {
+      url += `?game_id=${gameId}`
+    }
+
+    const response = await fetch(url)
+    const posts = await response.json()
+
+    const container = document.getElementById('postsContainer')
+    container.innerHTML = ''
+
+    const userIdLogado = getUserIdFromToken()
+console.log("userIdLogado:", userIdLogado)
+
+    let html = ''
+
+    posts.forEach(post => {
+      console.log("post.user_id:", post.user_id, "post_id:", post.post_id)
+
+      html += `
+        <div class="post">
+        <div class="post_origem">
+          <div class="user_photo">
+            <img src="${post.foto_perfil}" alt="Foto de Perfil">
+          </div>
+          <div class="infos_post">
+            <p id="username">${post.nome_usuario}</p>
+            <p id="dataCatg">Publicado em: ${new Date(post.data_postagem).toLocaleDateString()} - ${post.categoria}</p>
+          </div>
+          ${Number(post.user_id) === Number(userIdLogado) ? `
+  <div class="post_menu">
+    <button onclick="toggleMenu(${post.post_id})">⋮</button>
+
+    <div class="menu_options" id="menu-${post.post_id}">
+      <button onclick="editarPost(${post.post_id})">Editar</button>
+      <button onclick="deletarPost(${post.post_id})">Deletar</button>
+    </div>
+  </div>
+` : ''}
         </div>
-      `;
-      postsContainer.appendChild(postDiv);
-    });
+
+          <div class="content_post">
+            <h3>${post.titulo_postagem}</h3>
+            <p>${post.conteudo_postagem}</p>
+            ${post.foto_postagem ? `<img src="${post.foto_postagem}" alt="Imagem do post">` : ''}
+          </div>
+
+          <div class="comments">
+            <textarea name="" id="comentarioPost" class="conteudoComentario" placeholder="Escreva seu comentário..."></textarea>
+            <button class="commentBtn">Comentar</button>
+          </div>
+        </div>
+      `
+    })
+
+    container.innerHTML = html
+
+  } catch (error) {
+    console.error('Erro ao carregar posts:', error)
+  }
+}
+
+function toggleMenu(postId) {
+  const menu = document.getElementById(`menu-${postId}`)
+
+  document.querySelectorAll('.menu_options').forEach(m => {
+    if (m !== menu) m.style.display = 'none'
+  })
+
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'
+}
+
+// EDITAR POSTAGEM
+
+async function editarPost(post_id) {
+  const token = localStorage.getItem("token")
+
+  const res = await fetch(`http://localhost:3000/posts/${post_id}/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  try {
+    const result = await res.json()
+
+    if (!res.ok) {
+      alert(result.message || "Erro ao carregar post!")
+      return
+    }
+
+    const post = result.data
+
+    editandoId = post.post_id
+
+    document.getElementById("titulo_postagem").value = post.titulo_postagem
+    document.getElementById("conteudo_postagem").value = post.conteudo_postagem
+    document.getElementById("categoria_postagem").value = post.games_id
+
+    document.querySelector(".modal h3").textContent = "Editar postagem"
+    document.querySelector(".sentPost").textContent = "Salvar alterações"
+
+    document.querySelector(".modal").style.display = "flex"
+
+  } catch (err) {
+    console.error("Erro ao carregar post:", err)
+    alert("Erro de conexão ao carregar post.")
+  }
+}
+
+// DELETAR POSTAGEM
+
+async function deletarPost(post_id) {
+  const token = localStorage.getItem("token")
+
+  if (!token) {
+    Swal.fire({
+      icon: "error",
+      title: "Você precisa estar logado!",
+      text: "Faça login para deletar uma postagem.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
   }
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  const confirmacao = await Swal.fire({
+    icon: "warning",
+    title: "Deseja apagar esta postagem?",
+    text: "Essa ação não poderá ser desfeita.",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#8863e7",
+    confirmButtonText: "Deletar",
+    cancelButtonText: "Cancelar"
+  })
 
-    const titulo = document.getElementById("titulo").value;
-    const categoria = document.getElementById("categoria").value;
-    const conteudo = document.getElementById("conteudo").value;
-    const imagemInput = document.getElementById("imagem");
+  if (!confirmacao.isConfirmed) return
 
-    let imagemBase64 = "";
-    if (imagemInput.files && imagemInput.files[0]) {
-      imagemBase64 = await toBase64(imagemInput.files[0]);
+  try {
+    const res = await fetch(`http://localhost:3000/posts/${post_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        key: "EXCLUIR"
+      })
+    })
+
+    const result = await res.json()
+
+    if (!res.ok) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: result.message || "Erro ao deletar post!",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+      return
     }
 
-    const novoPost = { titulo, categoria, conteudo, imagem: imagemBase64 };
+    Swal.fire({
+      icon: "success",
+      title: "Sucesso!",
+      text: result.message || "Post deletado com sucesso!",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
 
-    if (editandoId) {
-      await fetch(`/api/posts/${editandoId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(novoPost),
-      });
-    } else {
-      await fetch("/api/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(novoPost),
-      });
-    }
+    await carregarPosts()
 
-    modal.style.display = "none";
-    form.reset();
-    editandoId = null;
-    carregarPosts();
-  });
+  } catch (err) {
+    console.error("Erro ao deletar post:", err)
+    Swal.fire({
+      icon: "error",
+      title: "Erro!",
+      text: "Erro de conexão ao deletar o post.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+  }
+}
 
-  // Editar e Deletar posts
-  window.editarPost = async function (id) {
-    const response = await fetch("/api/posts");
-    const posts = await response.json();
-    const post = posts.find((p) => p.id === id);
+// CARREGAR FUNÇÕES
 
-    if (post) {
-      document.getElementById("titulo").value = post.titulo;
-      document.getElementById("categoria").value = post.categoria;
-      document.getElementById("conteudo").value = post.conteudo;
-      editandoId = id;
-      modal.style.display = "block";
-    }
-  };
+window.onload = () => {
+  carregarPosts()
+  carregarJogos()
+  carregarJogosFiltro()
 
-  window.deletarPost = async function (id) {
-    if (confirm("Tem certeza que deseja excluir este post?")) {
-      await fetch(`/api/posts/${id}`, { method: "DELETE" });
-      carregarPosts();
-    }
-  };
-
-  // Inicialização
-  carregarCategorias();
-  carregarPosts();
-});*/
+  document.getElementById('filtrar').addEventListener('click', () => {
+    const gameId = document.getElementById('select-button').value
+    carregarPosts(gameId)
+  })
+}

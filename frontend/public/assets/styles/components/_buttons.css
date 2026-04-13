@@ -18,18 +18,14 @@
   .sentPost, .closeModal {
     width: max-content;
     text-wrap: nowrap;
-    background-color: var(--bg-Background);
+    background-color: var(--bg-Button);
     border-radius: 10px;
     padding: 0.8em 1.2em;
     text-align: center;
-    color: var(--bg-Font);
+    color: white;
     cursor: pointer;
     letter-spacing: 0.5px;
     transition: 0.3s;
-  }
-
-  .sentPost:hover, .closeModal:hover {
-    color: var(--bg-Button);
   }
 }
 
@@ -48,6 +44,15 @@
 
 .community-button:hover {
   color: var(--bg-Button);
+}
+
+.commentBtn {
+  width: 130px;
+  background-color: var(--bg-Button);
+  color: white;
+  border-radius: 10px;
+  padding: 0.6em 1.2em;
+  text-align: center;
 }
 
 .devs {

@@ -48,15 +48,42 @@ const postController = {
         }
     },
 
+    /*async getPostsByUser(req, res) {
+        try {
+            const { id } = req.params
+
+            const posts = await postRepository.getByUser(id)
+
+            res.json(posts)
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({
+                ok: false,
+                message: "Erro ao buscar posts do usuário!"
+            })
+        }
+    },*/
+
     async insertPost(req, res) {
         try {
-            const model = req.body
+            const { titulo_postagem, conteudo_postagem, games_id } = req.body
+            const user_id = req.user.id
 
-            if (!model.titulo_postagem || !model.conteudo_postagem) {
+            if (!titulo_postagem || !conteudo_postagem) {
                 return res.status(400).json({
                     ok: false,
-                    message: "Título e conteúdo da postagem são obrigatórios!"
+                    message: "Título, categoria e conteúdo da postagem são obrigatórios!"
                 })
+            }
+
+            const foto_postagem = req.file ? req.file.path : null
+
+            const model = {
+                titulo_postagem,
+                conteudo_postagem,
+                foto_postagem,
+                user_id,
+                games_id: Number(games_id)
             }
 
             const postCreated = await postRepository.create(model)
@@ -76,10 +103,10 @@ const postController = {
         }
     },
 
-    async updatePost(req, res) {
+    async getPostByIdAndUser(req, res) {
         try {
-            const model = req.body
             const post_id = Number(req.params.post_id)
+            const user_id = Number(req.user.id)
 
             if (isNaN(post_id)) {
                 return res.status(400).json({
@@ -88,7 +115,55 @@ const postController = {
                 })
             }
 
-            model.post_id = post_id
+            if (isNaN(user_id)) {
+                return res.status(401).json({
+                    ok: false,
+                    message: "Usuário não autenticado!"
+                })
+            }
+
+            const post = await postRepository.readByIdAndUser(post_id, user_id)
+
+            if (!post) {
+                return res.status(404).json({
+                    ok: false,
+                    message: "Post não encontrado ou não pertence ao usuário!"
+                })
+            }
+
+            return res.status(200).json({
+                ok: true,
+                data: post
+            })
+
+        } catch (e) {
+            return res.status(500).json({
+                ok: false,
+                message: "Erro do servidor!",
+                error: e.message
+            })
+        }
+    },
+
+    async updatePost(req, res) {
+        try {
+            const model = req.body
+            const post_id = Number(req.params.post_id)
+            const user_id = Number(req.user.id)
+
+            if (isNaN(post_id)) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "ID inválido!"
+                })
+            }
+
+            if (isNaN(user_id)) {
+                return res.status(401).json({
+                    ok: false,
+                    message: "Usuário não autenticado!"
+                })
+            }
 
             if (!model.titulo_postagem || !model.conteudo_postagem) {
                 return res.status(400).json({
@@ -97,18 +172,33 @@ const postController = {
                 })
             }
 
+            const existing = await postRepository.readByIdAndUser(post_id, user_id)
+
+            if (!existing) {
+                return res.status(404).json({
+                    ok: false,
+                    message: "Post não encontrado ou não pertence ao usuário!"
+                })
+            }
+
+            model.post_id = post_id
+            model.user_id = user_id
+            model.games_id = Number(model.games_id)
+
+            model.foto_postagem = req.file ? req.file.path : existing.foto_postagem
+
             const rowsAffected = await postRepository.update(model)
 
             if (rowsAffected > 0) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Post alterado com sucesso!'
+                    message: 'Post atualizado com sucesso!'
                 })
             }
 
-            return res.status(404).json({
+            return res.status(400).json({
                 ok: false,
-                message: 'Post não encontrado!'
+                message: 'Nenhuma alteração foi realizada!'
             })
 
         } catch (e) {
@@ -123,7 +213,22 @@ const postController = {
     async deletePost(req, res) {
         try {
             const post_id = Number(req.params.post_id)
+            const user_id = Number(req.user.id)
             const confirma = req.body.key
+
+            if (isNaN(post_id)) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "ID inválido!"
+                })
+            }
+
+            if (isNaN(user_id)) {
+                return res.status(401).json({
+                    ok: false,
+                    message: "Usuário não autenticado!"
+                })
+            }
 
             if (confirma !== 'EXCLUIR') {
                 return res.status(400).json({
@@ -132,18 +237,27 @@ const postController = {
                 })
             }
 
-            const rowsAffected = await postRepository.delete(post_id)
+            const existing = await postRepository.readByIdAndUser(post_id, user_id)
 
-            if (rowsAffected === 0) {
+            if (!existing) {
                 return res.status(404).json({
                     ok: false,
-                    message: 'Post não encontrado!',
+                    message: "Post não encontrado ou não pertence ao usuário!"
                 })
             }
 
-            return res.status(200).json({
-                ok: true,
-                message: 'Post deletado com sucesso!',
+            const rowsAffected = await postRepository.delete(post_id, user_id)
+
+            if (rowsAffected > 0) {
+                return res.status(200).json({
+                    ok: true,
+                    message: 'Post deletado com sucesso!',
+                })
+            }
+
+            return res.status(400).json({
+                ok: false,
+                message: "Não foi possível deletar o post!"
             })
         } catch (e) {
             res.status(500).json({
