@@ -35,9 +35,9 @@ function ajustarTextareas() {
 }
 
 async function carregarPerfil() {
-    const userId = localStorage.getItem("userId")
+    const token = localStorage.getItem("token")
 
-    if (!userId) {
+    if (!token) {
         Swal.fire({
             icon: 'error',
             title: `Você não está logado!`,
@@ -52,10 +52,14 @@ async function carregarPerfil() {
     }
 
     try {
-        const res = await fetch(`http://localhost:3000/profile/${userId}`)
+        const res = await fetch(`http://localhost:3000/profile`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
         const user = await res.json()
 
-        if (!user || user.erro) {
+        if (!res.ok || !user) {
             alert("Erro ao carregar perfil!")
             return
         }
@@ -64,7 +68,7 @@ async function carregarPerfil() {
         document.getElementById("bio").value = user.bio || ""
 
         ajustarTextareas()
-        
+
         fotoImg.src = user.foto_perfil || "/frontend/public/assets/imgs/user-default.jpg"
 
     } catch (err) {
@@ -75,7 +79,7 @@ async function carregarPerfil() {
 document.getElementById("btnSalvar").addEventListener("click", salvarPerfil)
 
 async function salvarPerfil() {
-    const userId = localStorage.getItem("userId")
+    const token = localStorage.getItem("token")
     const bio = document.getElementById("bio").value
 
     const formData = new FormData()
@@ -88,8 +92,11 @@ async function salvarPerfil() {
     }
 
     try {
-        const res = await fetch(`http://localhost:3000/profile/update/${userId}`, {
+        const res = await fetch(`http://localhost:3000/profile`, {
             method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
             body: formData
         })
 
@@ -107,3 +114,37 @@ async function salvarPerfil() {
         console.error("Erro ao salvar perfil:", err)
     }
 }
+
+/*async function carregarPostsPerfil() {
+  const userId = localStorage.getItem("userId")
+
+  const response = await fetch(`http://localhost:3000/posts/user/${userId}`)
+  const posts = await response.json()
+
+  const container = document.getElementById('postsContainer')
+
+  container.innerHTML = posts.map(post => `
+    <div class="post">
+      <div class="post_origem">
+        <div class="user_photo">
+          <img src="${post.foto_perfil}" alt="Foto de Perfil">
+        </div>
+
+        <div class="infos_post">
+          <p id="username">${post.nome_usuario}</p>
+          <p id="dataCatg">
+            ${new Date(post.data_postagem).toLocaleDateString()} - ${post.categoria}
+          </p>
+        </div>
+      </div>
+
+      <div class="content_post">
+        <h4>${post.titulo_postagem}</h4>
+        <p>${post.conteudo_postagem}</p>
+        ${post.foto_postagem ? `<img src="${post.foto_postagem}" alt="Imagem do post">` : ''}
+      </div>
+    </div>
+  `).join('')
+}
+
+carregarPostsPerfil()*/

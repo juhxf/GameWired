@@ -21,7 +21,6 @@
 .container__community .left {
     height: max-content;
     position: sticky;
-    top: 5.4em;
     width: 30vw;
 }
 
@@ -106,10 +105,6 @@
     padding: 0.6em 0.6em;
     background-color: var(--bg-Background);
     color: var(--bg-Font);
-
-    &:focus {
-        background-color: black;
-    }
 }
 
 .modal-content form .titleCatg {
@@ -117,18 +112,19 @@
     flex-direction: row;
     width: 90%;
     gap: 1rem;
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
 }
 
 .modal-content form .titleCatg .postCategoria {
-
     border-radius: 10px;
     padding: 0.3em 0.6em;
     background-color: var(--bg-Background);
     color: var(--bg-Font);
-
-    &:focus {
-        background-color: black;
-    }
 }
 
 .modal-content form .subject {
@@ -138,10 +134,6 @@
     padding: 0.3em 0.6em;
     background-color: var(--bg-Background);
     color: var(--bg-Font);
-
-    &:focus {
-        background-color: black;
-    }
 }
 
 .container__community .left .community-select {
@@ -153,64 +145,61 @@
     border-radius: 10px;
     padding: 20px;
     width: 100%;
+}
 
-    #catg-select {
-        width: 100%;
-        letter-spacing: 0.5px;
+.container__community .left .community-select #catg-select {
+    width: 100%;
+    letter-spacing: 0.5px;
 
-        .community-filter {
-            display: flex;
-            flex-direction: row;
-            gap: 5%;
-
-            #select-button {
-                width: 75%;
-                margin-top: 0.5rem;
-                display: flex;
-                padding: 0.75rem;
-                align-items: center;
-                justify-content: space-between;
-
-                border-radius: 10px;
-                background-color: var(--bg-Background);
-
-                font-size: 16px;
-                letter-spacing: 0.5px;
-                color: var(--bg-Font);
-
-                #chevrons svg {
-                    width: 0.5rem;
-                    height: 0.5rem;
-                }
-
-                #chevrons [class="bi bi-chevron-up"] {
-                    display: none;
-                }
-            }
-
-            button {
-                margin-top: 0.5rem;
-                display: flex;
-                padding: 0.75rem;
-                align-items: center;
-                justify-content: space-between;
-
-                border-radius: 10px;
-                background-color: var(--bg-Background);
-                width: 25%;
-
-                font-size: 16px;
-                letter-spacing: 0.5px;
-                color: var(--bg-Font);
-            }
-        }
+    p {
+        font-size: 16px;
     }
+}
+
+.container__community .left .community-select #catg-select .community-filter {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}
+
+.container__community .left .community-select #catg-select .community-filter select {
+    width: 75%;
+    margin-top: 0.5rem;
+    display: block;
+    padding: 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border-radius: 10px;
+    background-color: var(--bg-Background);
+
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: var(--bg-Font);
+}
+
+.container__community .left .community-select #catg-select .community-filter button {
+    margin-top: 0.5rem;
+    display: flex;
+    padding: 0.75rem;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    background-color: var(--bg-Background);
+    width: 25%;
+
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: var(--bg-Font);
 }
 
 .middle {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 68vw;
     height: max-content;
     position: relative;
@@ -218,11 +207,115 @@
     border-radius: 10px;
     padding: 20px;
     gap: 1em;
+    margin-bottom: 1.5em;
+}
 
-    h1 {
-        font-size: 30px;
-        font-weight: 700;
+.middle #postsContainer {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 0.8em;
+}
+
+.post_menu {
+    position: relative;
+    margin-left: auto;
+}
+
+.post_menu button {
+    background: none;
+    border: none;
+    font-size: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--bg-Font);
+}
+
+.menu_options {
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    width: 150px;
+    background: var(--bg-Card);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 5px;
+    z-index: 10;
+}
+
+.menu_options button {
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--bg-Font);
+    font-size: 16px;
+}
+
+.menu_options button:hover {
+    color: var(--bg-Button);
+}
+
+.middle #postsContainer .post {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-Background);
+    padding: 1em;
+    border-radius: 10px;
+    gap: 1em;
+}
+
+.middle #postsContainer .post .post_origem {
+    display: flex;
+    gap: 1em;
+}
+
+.middle #postsContainer .post .user_photo {
+    img {
+        height: 65px;
+        border-radius: 10px;
     }
+}
+
+.middle #postsContainer .post .infos_post {
+    display: flex;
+    flex-direction: column;
+
+    #username {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    #dataCatg {
+        font-size: 16px;
+        font-weight: 300;
+    }
+}
+
+.middle #postsContainer .post .content_post {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.middle .comments {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.middle .comments .conteudoComentario {
+    resize: none;
+    overflow: hidden;
+    width: 100%;
+    height: 45px;
+    color: var(--bg-Font);
+    background: var(--bg-Card);
+    border-radius: 10px;
+    padding: 10px;
 }
 
 @media screen and (max-width: 1024px) {

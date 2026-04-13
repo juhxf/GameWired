@@ -10,7 +10,7 @@ cloudinary.config({
 
 console.log("CLOUD:", process.env.CLOUDINARY_CLOUDNAME)
 
-const storage = new CloudinaryStorage({
+const storagePerfil = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "gamewired/perfil",
@@ -18,6 +18,15 @@ const storage = new CloudinaryStorage({
   }
 })
 
-export const upload = multer({ storage })
+const storagePosts = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "gamewired/posts",
+    allowed_formats: ["jpg", "png", "jpeg"]
+  }
+})
+
+export const uploadPerfil = multer({ storage: storagePerfil })
+export const uploadPosts = multer({ storage: storagePosts })
 
 export default cloudinary

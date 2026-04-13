@@ -62,7 +62,7 @@ form.addEventListener("submit", async (e) => {
         return
     }
 
-    localStorage.setItem("userId", result.user.id)
+    localStorage.setItem("token", result.token)
 
     Swal.fire({
         icon: 'success',
