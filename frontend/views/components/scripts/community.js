@@ -258,52 +258,110 @@ async function carregarPosts(gameId = null) {
       url += `?game_id=${gameId}`
     }
 
-    const response = await fetch(url)
-    const posts = await response.json()
+    const [responsePosts, responseComentarios] = await Promise.all([
+      fetch(url),
+      fetch("http://localhost:3000/comentarios")
+    ])
+
+    const postsResult = await responsePosts.json()
+    const posts = postsResult.data || postsResult
+    const comentariosResult = await responseComentarios.json()
+    const comentarios = comentariosResult.data || comentariosResult
 
     const container = document.getElementById('postsContainer')
     container.innerHTML = ''
 
     const userIdLogado = getUserIdFromToken()
-console.log("userIdLogado:", userIdLogado)
 
-    let html = ''
+    let html = ""
 
     posts.forEach(post => {
-      console.log("post.user_id:", post.user_id, "post_id:", post.post_id)
+      const comentariosDoPost = comentarios.filter(comentario =>
+        Number(comentario.post_id) === Number(post.post_id)
+      )
+
+      let comentariosHTML = ""
+
+      comentariosDoPost.forEach(comentario => {
+        comentariosHTML += `
+          <div class="comment">
+            <div class="comment_origem">
+              <div class="user_photo_comment">
+                <img src="${comentario.foto_perfil}" alt="Foto de Perfil">
+              </div>
+
+              <div class="infos_comment">
+                <p class="usernameComment">${comentario.nome_usuario}</p>
+              </div>
+
+              ${Number(comentario.user_id) === Number(userIdLogado) ? `
+                <div class="comment_menu">
+                  <button onclick="toggleMenuComentario(${comentario.comentario_id})">⋮</button>
+
+                  <div class="menu_options" id="comentario_menu-${comentario.comentario_id}">
+                    <button onclick="editarComment(${comentario.comentario_id})">Editar</button>
+                    <button onclick="deletarComment(${comentario.comentario_id})">Deletar</button>
+                  </div>
+                </div>
+              ` : ""}
+            </div>
+
+            <div class="content_comment">
+              <p>${comentario.comentario_conteudo}</p>
+            </div>
+            <p class="dataComment">
+              Data de Publicação: ${new Date(comentario.comentario_data).toLocaleDateString()}
+            </p>
+          </div>
+        `
+      })
 
       html += `
         <div class="post">
-        <div class="post_origem">
-          <div class="user_photo">
-            <img src="${post.foto_perfil}" alt="Foto de Perfil">
-          </div>
-          <div class="infos_post">
-            <p id="username">${post.nome_usuario}</p>
-            <p id="dataCatg">Publicado em: ${new Date(post.data_postagem).toLocaleDateString()} - ${post.categoria}</p>
-          </div>
-          ${Number(post.user_id) === Number(userIdLogado) ? `
-  <div class="post_menu">
-    <button onclick="toggleMenu(${post.post_id})">⋮</button>
+          <div class="post_origem">
+            <div class="user_photo">
+              <img src="${post.foto_perfil}" alt="Foto de Perfil">
+            </div>
 
-    <div class="menu_options" id="menu-${post.post_id}">
-      <button onclick="editarPost(${post.post_id})">Editar</button>
-      <button onclick="deletarPost(${post.post_id})">Deletar</button>
-    </div>
-  </div>
-` : ''}
-        </div>
+            <div class="infos_post">
+              <p class="username">${post.nome_usuario}</p>
+              <p class="Catg">
+                ${post.categoria}
+              </p>
+            </div>
+
+            ${Number(post.user_id) === Number(userIdLogado) ? `
+              <div class="post_menu">
+                <button onclick="toggleMenu(${post.post_id})">⋮</button>
+
+                <div class="menu_options" id="menu-${post.post_id}">
+                  <button onclick="editarPost(${post.post_id})">Editar</button>
+                  <button onclick="deletarPost(${post.post_id})">Deletar</button>
+                </div>
+              </div>
+            ` : ""}
+          </div>
 
           <div class="content_post">
             <h3>${post.titulo_postagem}</h3>
             <p>${post.conteudo_postagem}</p>
-            ${post.foto_postagem ? `<img src="${post.foto_postagem}" alt="Imagem do post">` : ''}
+            ${post.foto_postagem ? `<img src="${post.foto_postagem}" alt="Imagem do post">` : ""}
           </div>
 
-          <div class="comments">
-            <textarea name="" id="comentarioPost" class="conteudoComentario" placeholder="Escreva seu comentário..."></textarea>
-            <button class="commentBtn">Comentar</button>
+          <div class="dataPost">
+            Data de Publicação: ${new Date(post.data_postagem).toLocaleDateString()}
           </div>
+
+          <hr>
+
+          <div class="comments_list">
+            ${comentariosHTML || `<p class="semComentarios">Nenhum comentário ainda.</p>`}
+          </div>
+
+          <form class="comments" data-post-id="${post.post_id}">
+            <textarea class="commentContent" placeholder="Escreva seu comentário..."></textarea>
+            <button type="submit" class="commentBtn">Comentar</button>
+          </form>
         </div>
       `
     })
@@ -311,7 +369,7 @@ console.log("userIdLogado:", userIdLogado)
     container.innerHTML = html
 
   } catch (error) {
-    console.error('Erro ao carregar posts:', error)
+    console.error("Erro ao carregar posts:", error)
   }
 }
 
@@ -323,6 +381,16 @@ function toggleMenu(postId) {
   })
 
   menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'
+}
+
+function toggleMenuComentario(comentarioId) {
+  const menu = document.getElementById(`comentario_menu-${comentarioId}`)
+
+  document.querySelectorAll(".comment_menu .menu_options").forEach(m => {
+    if (m !== menu) m.style.display = "none"
+  })
+
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex"
 }
 
 // EDITAR POSTAGEM
@@ -433,6 +501,237 @@ async function deletarPost(post_id) {
       icon: "error",
       title: "Erro!",
       text: "Erro de conexão ao deletar o post.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+  }
+}
+
+// CRIAR COMENTÁRIOS
+
+let editandoComentarioId = null
+
+document.addEventListener("submit", async (e) => {
+  const form = e.target
+
+  if (!form.classList.contains("comments")) return
+
+  e.preventDefault()
+
+  const token = localStorage.getItem("token")
+  const textarea = form.querySelector(".commentContent")
+  const comentario_conteudo = textarea.value.trim()
+  const post_id = Number(form.dataset.postId)
+
+  if (!token) {
+    Swal.fire({
+      icon: "error",
+      title: "Você precisa estar logado!",
+      text: "Faça login para comentar no post.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
+  }
+
+  if (!comentario_conteudo) {
+    Swal.fire({
+      icon: "warning",
+      title: "Preencha todos os dados!",
+      text: "O conteúdo do comentário não pode ficar vazio.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
+  }
+
+  let url = "http://localhost:3000/comentarios"
+  let method = "POST"
+  let body = {
+    comentario_conteudo,
+    post_id
+  }
+
+  if (editandoComentarioId) {
+    url = `http://localhost:3000/comentarios/${editandoComentarioId}`
+    method = "PATCH"
+    body = {
+      comentario_conteudo
+    }
+  }
+
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+
+    const result = await res.json()
+
+    if (!res.ok) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: result.message || "Erro ao salvar comentário!",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+      return
+    }
+
+    textarea.value = ""
+    form.querySelector(".commentBtn").textContent = "Comentar"
+    editandoComentarioId = null
+
+    Swal.fire({
+      icon: "success",
+      title: "Sucesso!",
+      text: result.message || "Comentário feito com sucesso!",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+
+    await carregarPosts()
+
+  } catch (err) {
+    console.error("Erro ao criar comentário:", err)
+    Swal.fire({
+      icon: "error",
+      title: "Erro!",
+      text: "Erro ao conectar com o servidor.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+  }
+})
+
+// EDITAR COMENTÁRIO
+
+async function editarComment(comentario_id) {
+  const token = localStorage.getItem("token")
+
+  try {
+    const res = await fetch(`http://localhost:3000/comentarios/${comentario_id}/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    const result = await res.json()
+
+    if (!res.ok) {
+      alert(result.message || "Erro ao carregar comentário!")
+      return
+    }
+
+    const comentario = result.data
+    editandoComentarioId = comentario.comentario_id
+
+    const form = document.querySelector(`.comments[data-post-id="${comentario.post_id}"]`)
+    if (!form) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: "Formulário do comentário não encontrado.",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+      return
+    }
+
+    const textarea = form.querySelector(".commentContent")
+    const button = form.querySelector(".commentBtn")
+
+    textarea.value = comentario.comentario_conteudo
+    textarea.focus()
+    button.textContent = "Salvar"
+
+  } catch (err) {
+    console.error("Erro ao carregar comentário:", err)
+    Swal.fire({
+      icon: "error",
+      title: "Erro!",
+      text: "Erro de conexão ao carregar comentário.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+  }
+}
+
+// DELETAR COMENTÁRIOS
+
+async function deletarComment(comentario_id) {
+  const token = localStorage.getItem("token")
+
+  if (!token) {
+    Swal.fire({
+      icon: "error",
+      title: "Você precisa estar logado!",
+      text: "Faça login para deletar uma comentário.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
+  }
+
+  const confirmacao = await Swal.fire({
+    icon: "warning",
+    title: "Deseja apagar este comentário?",
+    text: "Essa ação não poderá ser desfeita.",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#8863e7",
+    confirmButtonText: "Deletar",
+    cancelButtonText: "Cancelar"
+  })
+
+  if (!confirmacao.isConfirmed) return
+
+  try {
+    const res = await fetch(`http://localhost:3000/comentarios/${comentario_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        key: "EXCLUIR"
+      })
+    })
+
+    const result = await res.json()
+
+    if (!res.ok) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: result.message || "Erro ao deletar comentário!",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+      return
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Sucesso!",
+      text: result.message || "Comentário deletado com sucesso!",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+
+    await carregarPosts()
+
+  } catch (err) {
+    console.error("Erro ao deletar comentário:", err)
+    Swal.fire({
+      icon: "error",
+      title: "Erro!",
+      text: "Erro de conexão ao comentário o post.",
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     })
