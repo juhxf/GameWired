@@ -1,4 +1,4 @@
-const editor = document.getElementById("editor");
+/*const editor = document.getElementById("editor");
 const inputCapa = document.getElementById("capa");
 
 
@@ -46,3 +46,4 @@ function publicar(event) {
 
 window.execCmd = execCmd;
 window.addLink = addLink;
+*/

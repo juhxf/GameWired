@@ -1,100 +1,151 @@
-/*const editor = document.getElementById("editor");
-const tituloInput = document.getElementById("titulo");
-const dataInput = document.getElementById("data");
-const form = document.getElementById("formPost");
+const form = document.querySelector("#form")
 
-document.getElementById("btnBold").addEventListener("click", () => {
-  document.execCommand("bold");
-});
+form.addEventListener("submit", async (e) => {
+  e.preventDefault()
 
-document.getElementById("btnItalic").addEventListener("click", () => {
-  document.execCommand("italic");
-});
+  const fields = [
+    { id: 'titulo', validator: tituloIsValid },
+    { id: 'data_publicacao', validator: dataIsValid },
+    { id: 'capa', validator: capaIsValid },
+    { id: 'conteudo', validator: conteudoIsValid }
+  ]
 
-document.getElementById("btnUnderline").addEventListener("click", () => {
-  document.execCommand("underline");
-});
+  const errorIcon = '<i class="fa-solid fa-triangle-exclamation"></i>'
 
-document.getElementById("btnLink").addEventListener("click", () => {
-  const url = prompt("Digite a URL do link:");
-  if (url) document.execCommand("createLink", false, url);
-});
+  fields.forEach(function (field) {
+    const input = document.getElementById(field.id)
+    const inputBox = input.closest('.input-box')
+    const inputValue = input.value
 
-document.getElementById("btnImage").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  
-  const reader = new FileReader();
-  reader.onload = () => {
-    document.execCommand("insertImage", false, reader.result);
-  };
-  reader.readAsDataURL(file);
-});
+    // editor é diferente (contenteditable)
+    if (field.id === 'editor') {
+      value = input.innerHTML
+    }
 
+    const errorSpan = inputBox.querySelector('.error')
+    errorSpan.innerHTML = ''
 
-function salvarRascunho() {
-  localStorage.setItem("post_titulo", tituloInput.value);
-  localStorage.setItem("post_data", dataInput.value);
-  localStorage.setItem("post_conteudo", editor.innerHTML);
+    inputBox.classList.remove('invalid')
+    inputBox.classList.add('valid')
+
+    const fieldValidator = field.validator(inputValue)
+
+    if (!fieldValidator.isValid) {
+      errorSpan.innerHTML = `${errorIcon} ${fieldValidator.errorMessage}`
+      inputBox.classList.add('invalid')
+      inputBox.classList.remove('valid')
+    }
+  })
+
+    const data = {
+    nome_usuario: document.getElementById("nome_usuario").value,
+    data_nascimento: document.getElementById("data_nascimento").value,
+    email: document.getElementById("email").value,
+    senha: document.getElementById("senha").value,
+    confirmarSenha: document.getElementById("confirmarSenha").value
+  }
+
+  /*const url = "http://localhost:3000/users/register";
+
+  const res = await fetch(url, {
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+
+  const result = await res.json()
+  console.log(result)*/
+
+})
+
+//const hasInvalid = document.querySelector('.invalid')
+//if (hasInvalid) return
+
+function isEmpty(value) {
+  return value === ''
 }
 
-tituloInput.addEventListener("input", salvarRascunho);
-dataInput.addEventListener("input", salvarRascunho);
-editor.addEventListener("input", salvarRascunho);
+function tituloIsValid(value) {
+  const validator = { isValid: true, errorMessage: null }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("post_titulo")) {
-    tituloInput.value = localStorage.getItem("post_titulo");
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'O título é obrigatório!'
+    return validator
   }
-  if (localStorage.getItem("post_data")) {
-    dataInput.value = localStorage.getItem("post_data");
+
+  const min = 5
+
+  if (value.length < min) {
+    validator.isValid = false
+    validator.errorMessage = `O título deve ter no mínimo ${min} caracteres!`
+    return validator
   }
-  if (localStorage.getItem("post_conteudo")) {
-    editor.innerHTML = localStorage.getItem("post_conteudo");
-  }
-});
 
-
-async function enviarParaAPI(dadosPost) {
-  try {
-    const resposta = await fetch("https://sua-api.com/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(dadosPost)
-    });
-
-    //if (!resposta.ok) {
-      //alert("Ocorreu um erro ao enviar o post!");
-      //return;
-    //}
-
-    //alert("Post enviado com sucesso!");
-
-    localStorage.removeItem("post_titulo");
-    localStorage.removeItem("post_data");
-    localStorage.removeItem("post_conteudo");
-
-    form.reset();
-    editor.innerHTML = "";
-    
-  } catch (erro) {
-    console.error("Erro ao enviar:", erro);
-    alert("Erro ao conectar com backend.");
-  }
+  return validator
 }
 
+function dataIsValid(value) {
+  const validator = { isValid: true, errorMessage: null }
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault(); 
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'A data é obrigatória!'
+    return validator
+  }
 
-  const dadosPost = {
-    titulo: tituloInput.value,
-    data: dataInput.value,
-    conteudo: editor.innerHTML
-  };
+  const selectedDate = new Date(value)
+  const today = new Date()
 
-  enviarParaAPI(dadosPost);
-});*/
+  if (selectedDate > today) {
+    validator.isValid = false
+    validator.errorMessage = 'A data não pode ser futura!'
+    return validator
+  }
+
+  return validator
+}
+
+function capaIsValid(value) {
+  const validator = { isValid: true, errorMessage: null }
+
+  const fileInput = document.getElementById('capa')
+
+  if (fileInput.files.length === 0) {
+    validator.isValid = false
+    validator.errorMessage = 'A imagem de capa é obrigatória!'
+    return validator
+  }
+
+  const file = fileInput.files[0]
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+
+  if (!allowedTypes.includes(file.type)) {
+    validator.isValid = false
+    validator.errorMessage = 'Formato inválido! Use JPG, PNG ou WEBP.'
+    return validator
+  }
+
+  return validator
+}
+
+function conteudoIsValid(value) {
+  const validator = { isValid: true, errorMessage: null }
+
+  // remove tags HTML
+  const text = value.replace(/<[^>]*>/g, '').trim()
+
+  if (text === '') {
+    validator.isValid = false
+    validator.errorMessage = 'O conteúdo não pode estar vazio!'
+    return validator
+  }
+
+  if (text.length < 20) {
+    validator.isValid = false
+    validator.errorMessage = 'O conteúdo deve ter no mínimo 20 caracteres!'
+    return validator
+  }
+
+  return validator
+}

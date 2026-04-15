@@ -26,19 +26,29 @@
   <main id="create-area">
     <section class="container">
       <div class="card">
-        <form action="" id="postForm">
-          <label for="titulo">Título:</label>
-          <input type="text" id="titulo" placeholder="Digite o título do post">
 
-          <label for="data">Data de publicação:</label>
-          <input type="date" id="data" required>
+        <form method="post" id="form">
+          <div class="input-box">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" placeholder="Digite o título do post">
+            <span class="error"></span>
+          </div>
 
+          <div class="input-box">
+            <label for="data_publicacao">Data de publicação:</label>
+            <input type="date" id="data_publicacao">
+            <span class="error"></span>
+          </div>
 
-          <label for="capa">Imagem de capa:</label>
-          <input type="file" id="capa" accept="image/*">
+          <div class="input-box">
+            <label for="capa">Imagem de capa:</label>
+            <input type="file" id="capa" accept="image/*">
+            <span class="error"></span>
+          </div>
 
-
-          <label>Conteúdo:</label>
+          <div class="input-box">
+            <label>Conteúdo:</label>
+          </div>
 
           <div class="toolbar">
             <button type="button" onclick="execCmd('bold')"><b>B</b></button>
@@ -47,9 +57,18 @@
             <button onclick="addLink()">Link</button>
           </div>
 
-          <div class="editor" id="editor" contenteditable="true"></div>
+          <div class="input-box">     
+            <textarea id="conteudo" class="editor" name="conteudo"></textarea>
+            <span class="error"></span>
+          </div>
 
-          <button type="submit" class="btn-publish">Publicar Notícia</button>
+          <!--<input id="conteudo" class="editor" name="conteudo">-->
+          <!--<div class="editor" id="editor" contenteditable="true"></div>-->
+
+          <div class="action">
+            <button type="submit" class="btn-publish">Publicar Notícia</button>
+            <button type="reset" class="btn-register">Limpar</button>
+          </div>
 
         </form>
       </div>
@@ -57,7 +76,7 @@
 
   <footer id="footer"></footer>
 
-  <script src="/frontend/views/components/scripts/editor-tools.js"></script>
+  <!--<script src="/frontend/views/components/scripts/editor-tools.js"></script>-->
   <script src="/frontend/views/components/scripts/create-news.js"></script>
 
   <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
