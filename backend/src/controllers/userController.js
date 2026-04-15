@@ -141,12 +141,12 @@ const userController = {
         }
     },
 
-    async delete(req, res) {
+    async deleteUser(req, res) {
         try {
             const id = req.params.id
             const confirma = req.body.key
             if (confirma === 'EXCLUIR') {
-                const respDB = await userRepository.delete(id)
+                const respDB = await userRepository.deleteUser(id)
                 if (respDB.rowsAffected[0] > 0) {
                     res.status(200).json({
                         ok: true,

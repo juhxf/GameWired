@@ -123,7 +123,7 @@ const postRepository = {
         return result.rowsAffected[0]
     },
 
-    async delete(post_id, user_id) {
+    async deletePost(post_id, user_id) {
         const conn = await connect()
 
         const existing = await this.readByIdAndUser(post_id, user_id)

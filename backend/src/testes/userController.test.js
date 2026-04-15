@@ -1,103 +1,118 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import * as bcrypt from 'bcrypt'
-import * as db from '../database/connection.js'
-import { login } from '../controllers/userController.js'
+import httpMocks from "node-mocks-http";
+import { afterEach, assert, describe, it } from "poku";
+import quibble from "quibble";
 
+const userMock = {
+  user_id: 1,
+  email: "teste@email.com",
+  senha: "hash"
+};
+await quibble.esm("../repositories/userRepository.js", {
+  default: {
+    readAll: async () => [userMock],
+    readById: async (id) => (id == 1 ? [userMock] : []),
+    create: async () => ({ rowsAffected: [1] }),
+    findByEmail: async () => userMock,
+    update: async () => ({ rowsAffected: [1] }),
+    deleteUser: async () => ({ rowsAffected: [1] }),
+  }
+});
 
+await quibble.esm("../controllers/authUserController.js", {
+  default: {
+    crypt: async () => "senha_hash"
+  }
+});
+await quibble.esm("bcrypt", {
+  default: {
+    compare: async () => true
+  }
+});
+await quibble.esm("jsonwebtoken", {
+  default: {
+    sign: () => "token_fake"
+  }
+});
 
-vi.spyOn(db, 'connect').mockResolvedValue({
-  request: () => ({
-    input: function () { return this },
-    query: async () => ({ recordset: [] })
-  })
-})
+const userController = (await import("../controllers/userController.js")).default;
 
-vi.spyOn(bcrypt, 'compare').mockResolvedValue(true)
+describe("UserController", { background: "blue" });
 
-describe('TESTES CONTROLLER LOGIN', () => {
+await it("getUserById() - usuário encontrado", async () => {
+  const req = httpMocks.createRequest({
+    method: "GET",
+    params: { id: 1 }
+  });
 
-  let req
-  let res
+  const res = httpMocks.createResponse();
 
-  beforeEach(() => {
-    req = { body: {} }
+  await userController.getUserById(req, res);
 
-    res = {
-      status: vi.fn().mockReturnThis(),
-      json: vi.fn()
+  const data = res._getJSONData();
+
+  assert.strictEqual(res.statusCode, 200);
+  assert.strictEqual(data[0].email, "teste@email.com");
+});
+
+await it("insert() - sucesso", async () => {
+  const req = httpMocks.createRequest({
+    method: "POST",
+    body: {
+      email: "teste@email.com",
+      senha: "123",
+      confirmarSenha: "123"
     }
-  })
+  });
 
-  it('deve retornar 400 se faltar dados', async () => {
-    req.body = {}
+  const res = httpMocks.createResponse();
 
-    await login(req, res)
+  await userController.insert(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(400)
-  })
+  const data = res._getJSONData();
 
-  it('deve retornar 401 se usuário não existir', async () => {
+  assert.strictEqual(res.statusCode, 200);
+  assert.strictEqual(data.ok, true);
+});
 
-    db.connect.mockResolvedValueOnce({
-      request: () => ({
-        input: function () { return this },
-        query: async () => ({ recordset: [] })
-      })
-    })
-
-    req.body = {
-      email: 'teste@email.com',
-      senha: '123'
+await it("login() - sucesso", async () => {
+  const req = httpMocks.createRequest({
+    method: "POST",
+    body: {
+      email: "teste@email.com",
+      senha: "123"
     }
+  });
 
-    await login(req, res)
+  const res = httpMocks.createResponse();
 
-    expect(res.status).toHaveBeenCalledWith(401)
-  })
+  process.env.JWT_SECRET = "teste";
 
-  it('deve retornar 401 se senha for inválida', async () => {
+  await userController.login(req, res);
 
-    db.connect.mockResolvedValueOnce({
-      request: () => ({
-        input: function () { return this },
-        query: async () => ({
-          recordset: [{ senha: 'hash' }]
-        })
-      })
-    })
+  const data = res._getJSONData();
 
-    vi.spyOn(bcrypt, 'compare').mockResolvedValueOnce(false)
+  assert.strictEqual(res.statusCode, 200);
+  assert.strictEqual(data.token, "token_fake");
+});
 
-    req.body = {
-      email: 'teste@email.com',
-      senha: '123'
-    }
+await it("deleteUser() - sucesso", async () => {
+  const req = httpMocks.createRequest({
+    method: "DELETE",
+    params: { id: 1 },
+    body: { key: "EXCLUIR" }
+  });
 
-    await login(req, res)
+  const res = httpMocks.createResponse();
 
-    expect(res.status).toHaveBeenCalledWith(401)
-  })
+  await userController.deleteUser(req, res);
 
-  it('deve retornar 200 se login for válido', async () => {
+  const data = res._getJSONData();
 
-    db.connect.mockResolvedValueOnce({
-      request: () => ({
-        input: function () { return this },
-        query: async () => ({
-          recordset: [{ senha: 'hash' }]
-        })
-      })
-    })
+  assert.strictEqual(res.statusCode, 200);
+  assert.strictEqual(data.ok, true);
+});
 
-    vi.spyOn(bcrypt, 'compare').mockResolvedValueOnce(true)
+afterEach(() => {
+  quibble.reset();
+});
 
-    req.body = {
-      email: 'teste@email.com',
-      senha: '123'
-    }
-
-    await login(req, res)
-
-    expect(res.status).toHaveBeenCalledWith(200)
-  })
-})

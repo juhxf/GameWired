@@ -65,7 +65,7 @@ const userRepository = {
         return result
     },
 
-    async delete(id) {
+    async deleteUser(id) {
         const conn = await connect()
 
         const sql = `delete from Users where user_id=@user_id`
