@@ -69,7 +69,7 @@ async function carregarPerfil() {
 
         ajustarTextareas()
 
-        fotoImg.src = user.foto_perfil || "/frontend/public/assets/imgs/user-default.jpg"
+        fotoImg.src = user.foto_perfil || "https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg"
 
     } catch (err) {
         console.error("Erro ao carregar perfil:", err)
