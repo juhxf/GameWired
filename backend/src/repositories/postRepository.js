@@ -108,7 +108,8 @@ const postRepository = {
         if (!existing) throw new Error("Post não encontrado ou não pertence ao usuário!")
 
         const sql = `UPDATE Posts
-            SET titulo_postagem=@titulo_postagem, conteudo_postagem=@conteudo_postagem, foto_postagem=@foto_postagem, games_id=@games_id
+            SET titulo_postagem=@titulo_postagem, conteudo_postagem=@conteudo_postagem, foto_postagem=@foto_postagem,
+            games_id=@games_id
             WHERE post_id=@post_id AND user_id=@user_id`
 
         const result = await conn.request()

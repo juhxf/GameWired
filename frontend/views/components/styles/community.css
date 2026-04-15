@@ -217,6 +217,20 @@
     gap: 0.8em;
 }
 
+.comment_menu {
+    position: relative;
+    margin-left: auto;
+}
+
+.comment_menu button {
+    background: none;
+    border: none;
+    font-size: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--bg-Font);
+}
+
 .post_menu {
     position: relative;
     margin-left: auto;
@@ -284,12 +298,12 @@
     display: flex;
     flex-direction: column;
 
-    #username {
+    .username {
         font-size: 24px;
         font-weight: 600;
     }
 
-    #dataCatg {
+    .Catg {
         font-size: 16px;
         font-weight: 300;
     }
@@ -301,13 +315,72 @@
     gap: 0.5em;
 }
 
+.middle #postsContainer .post .dataPost {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.middle .comments_list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.middle .comments_list .comment {
+    display: flex;
+    flex-direction: column;
+    resize: none;
+    overflow: hidden;
+    width: 100%;
+    height: max-content;
+    color: var(--bg-Font);
+    background: var(--bg-Card);
+    border-radius: 10px;
+    padding: 10px;
+    gap: 0.5em;
+}
+
+.middle .comments_list .comment .comment_origem {
+    display: flex;
+    gap: 1em;
+}
+
+.middle .comments_list .comment .user_photo_comment {
+    img {
+        height: 45px;
+        border-radius: 10px;
+    }
+}
+
+.middle .comments_list .comment .infos_comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .usernameComment {
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+
+.middle .comments_list .comment .content_comment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.middle .comments_list .comment .dataComment {
+    font-size: 16px;
+    font-weight: 500;
+}
+
 .middle .comments {
     display: flex;
     flex-direction: row;
     gap: 1em;
 }
 
-.middle .comments .conteudoComentario {
+.middle .comments .commentContent {
     resize: none;
     overflow: hidden;
     width: 100%;

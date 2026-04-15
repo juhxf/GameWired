@@ -6,6 +6,7 @@ import gameRouter from "./src/routes/gameRoute.js"
 import globalMiddleware from "./src/middlewares/globalMiddleware.js"
 import express from "express"
 import cors from "cors"
+import commentRouter from './src/routes/commentRoute.js'
 
 const port = process.env.PORT
 const host = process.env.HOST
@@ -13,7 +14,7 @@ const app = express()
 
 app.use(cors({
   origin: "*",
-  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
@@ -23,6 +24,7 @@ app.use(globalMiddleware.getIP)
 app.use(userRoute)
 app.use(profileRoute)
 app.use(postRouter)
+app.use(commentRouter)
 app.use(gameRouter)
 
 app.listen(port, host, () => {
