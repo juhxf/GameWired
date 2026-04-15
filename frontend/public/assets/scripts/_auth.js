@@ -1,5 +1,5 @@
 function applyauth() {
-    const userId = localStorage.getItem("userId")
+    const token = localStorage.getItem("token")
 
     const registerDesktop = document.getElementById("registerLinkDesktop")
     const profileDesktop = document.getElementById("profileLinkDesktop")
@@ -11,15 +11,15 @@ function applyauth() {
 
     if (!registerDesktop) return
 
-    if (userId) {
+    if (token) {
         registerDesktop.style.display = "none"
         registerMobile.style.display = "none"
 
         profileDesktop.style.display = "inline-block"
         profileMobile.style.display = "inline-block"
 
-        profileDesktop.href = `/frontend/views/pages/subpages/profile.html?id=${userId}`
-        profileMobile.href = `/frontend/views/pages/subpages/profile.html?id=${userId}`
+        profileDesktop.href = `/frontend/views/pages/subpages/profile.html`
+        profileMobile.href = `/frontend/views/pages/subpages/profile.html`
 
         logoutDesktop.style.display = "inline-block"
         logoutMobile.style.display = "inline-block"
@@ -40,7 +40,7 @@ function applyauth() {
 
 }
 function logout() {
-    localStorage.removeItem("userId")
+    localStorage.removeItem("token")
     window.location.reload()
 }
 

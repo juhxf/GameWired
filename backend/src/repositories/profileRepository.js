@@ -6,10 +6,10 @@ const profileRepository = {
         const conn = await connect()
 
         const { recordset } = await conn.request()
-            .input("usuarioId", sqltype.Int, usuarioId)
+            .input("user_id", sqltype.Int, usuarioId)
             .query(`SELECT foto_perfil, nome_usuario, bio
             FROM Users
-            WHERE id = @usuarioId`)
+            WHERE user_id = @user_id`)
 
         return recordset[0]
     },
@@ -26,14 +26,14 @@ const profileRepository = {
         query += `, foto_perfil = @foto_perfil`
     }
 
-    query += ` WHERE id = @usuarioId;
+    query += ` WHERE user_id = @user_id;
 
     SELECT foto_perfil, bio
     FROM Users
-    WHERE id = @usuarioId`
+    WHERE user_id = @user_id`
 
     const request = conn.request()
-        .input("usuarioId", sqltype.Int, usuarioId)
+        .input("user_id", sqltype.Int, usuarioId)
         .input("bio", sqltype.VarChar, bio)
 
     if (foto_perfil) {

@@ -1,5 +1,7 @@
 import userRepository from "../repositories/userRepository.js"
 import auth from "./authUserController.js"
+import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
 
 const userController = {
     async getAllUsers(req, res) {
@@ -69,7 +71,7 @@ const userController = {
                 })
             }
 
-            const user = await userRepository.readUser(email, senha)
+            const user = await userRepository.findByEmail(email)
 
             if (!user) {
                 return res.status(401).json({
@@ -78,9 +80,25 @@ const userController = {
                 })
             }
 
+            const senhaValida = await bcrypt.compare(senha, user.senha)
+
+            if (!senhaValida) {
+                return res.status(401).json({
+                    ok: false,
+                    message: "Credenciais inválidas!"
+                })
+            }
+
+            const token = jwt.sign(
+                { id: user.user_id },
+                process.env.JWT_SECRET,
+                { expiresIn: "1h" }
+            )
+
             return res.status(200).json({
                 ok: true,
                 message: "Login realizado com sucesso!",
+                token,
                 user
             })
         } catch (err) {
@@ -123,16 +141,16 @@ const userController = {
         }
     },
 
-    async delete(req, res) {
+    async deleteUser(req, res) {
         try {
             const id = req.params.id
             const confirma = req.body.key
             if (confirma === 'EXCLUIR') {
-                const respDB = await userRepository.delete(id)
+                const respDB = await userRepository.deleteUser(id)
                 if (respDB.rowsAffected[0] > 0) {
                     res.status(200).json({
                         ok: true,
-                        message: 'Usuário deletado com sucesso!(não se faz)',
+                        message: 'Usuário deletado com sucesso!',
                     })
                     return
                 }

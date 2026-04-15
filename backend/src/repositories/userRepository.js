@@ -16,8 +16,8 @@ const userRepository = {
         const conn = await connect()
 
         const { recordset } = await conn.request()
-            .input('id', sqltype.Int, id)
-            .query('select * from Users where id = @id')
+            .input('user_id', sqltype.Int, id)
+            .query('select * from Users where user_id = @user_id')
 
         return recordset
     },
@@ -38,22 +38,14 @@ const userRepository = {
         return result
     },
 
-    async readUser(email, senha) {
+    async findByEmail(email) {
         const conn = await connect()
 
         const { recordset } = await conn.request()
             .input('email', sqltype.VarChar(150), email)
             .query(`select * from Users where email = @email`)
 
-        if (recordset.length > 0) {
-            const hash = recordset[0].senha
-
-            if (authUserController.compare(senha, hash)) {
-                return recordset[0]
-            }
-        }
-
-        return null
+        return recordset[0]
     },
 
     async update(id, user) {
@@ -61,10 +53,10 @@ const userRepository = {
 
         const sql = `update Users
         set nome_usuario=@nome_usuario, email=@email,data_nascimento=@data_nascimento
-        where id=@id;`
+        where user_id=@user_id;`
 
         const result = await conn.request()
-            .input('id', sqltype.Int, id)
+            .input('user_id', sqltype.Int, id)
             .input('nome_usuario', sqltype.VarChar, user.nome_usuario)
             .input('email', sqltype.VarChar, user.email)
             .input('data_nascimento', sqltype.Date, user.data_nascimento)
@@ -73,13 +65,13 @@ const userRepository = {
         return result
     },
 
-    async delete(id) {
+    async deleteUser(id) {
         const conn = await connect()
 
-        const sql = `delete from Users where id=@id`
+        const sql = `delete from Users where user_id=@user_id`
 
         const result = await conn.request()
-            .input("id", sqltype.Int, id)
+            .input("user_id", sqltype.Int, id)
             .query(sql)
 
         return result
