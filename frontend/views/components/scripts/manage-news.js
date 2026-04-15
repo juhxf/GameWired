@@ -61,25 +61,20 @@ newsList.addEventListener("click", (e) => {
   }
 })
 
-// cancelar exclusão
 btnCancel.addEventListener("click", () => {
   modal.classList.add("hidden")
   selectedId = null
 })
 
-// confirmar exclusão
 btnConfirm.addEventListener("click", () => {
   console.log("Excluir notícia:", selectedId)
 
-  // Aqui você pode integrar com backend depois
-  // exemplo:
   // await fetch(`/api/news/${selectedId}`, { method: "DELETE" })
 
   modal.classList.add("hidden")
   selectedId = null
 })
 
-// fechar modal clicando fora
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.classList.add("hidden")
