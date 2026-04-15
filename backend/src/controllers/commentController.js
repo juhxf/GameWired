@@ -1,99 +1,90 @@
-import postRepository from "../repositories/postRepository.js"
+import commentRepository from "../repositories/commentRepository.js"
 
-const postController = {
-    async getAllPosts(req, res) {
+const commentController = {
+    async getAllComments(req, res) {
         try {
-            const posts = await postRepository.readAll()
-            res.json(posts)
+            const comentarios = await commentRepository.readAll()
+            return res.status(200).json({
+                ok: true,
+                data: comentarios
+            })
         } catch (e) {
             console.error(e)
             res.status(500).json({
                 ok: false,
-                message: "Erro ao buscar posts!"
+                message: "Erro ao buscar comentários!"
             })
         }
     },
 
-    async getPostById(req, res) {
+    async getCommentById(req, res) {
         try {
-            const post_id = Number(req.params.post_id)
+            const comentario_id = Number(req.params.comentario_id)
 
-            if (isNaN(post_id)) {
+            if (isNaN(comentario_id)) {
                 return res.status(400).json({
                     ok: false,
                     message: "ID inválido!"
                 })
             }
 
-            const post = await postRepository.readById(post_id)
+            const comentario = await commentRepository.readById(comentario_id)
 
-            if (!post) {
+            if (!comentario) {
                 return res.status(404).json({
                     ok: false,
-                    message: "Post não encontrado!"
+                    message: "Comentário não encontrado!"
                 })
             }
 
-            res.json({
+            return res.json({
                 ok: true,
-                data: post
+                data: comentario
             })
-
         } catch (e) {
             console.error(e)
             res.status(500).json({
                 ok: false,
-                message: "Erro ao buscar post!"
+                message: "Erro ao buscar comentário!"
             })
         }
     },
 
-    /*async getPostsByUser(req, res) {
+    async insertComment(req, res) {
         try {
-            const { id } = req.params
+            const { comentario_conteudo, post_id } = req.body
+            const user_id = Number(req.user_id)
 
-            const posts = await postRepository.getByUser(id)
-
-            res.json(posts)
-        } catch (e) {
-            console.error(e)
-            res.status(500).json({
-                ok: false,
-                message: "Erro ao buscar posts do usuário!"
-            })
-        }
-    },*/
-
-    async insertPost(req, res) {
-        try {
-            const { titulo_postagem, conteudo_postagem, games_id } = req.body
-            const user_id = req.user.id
-
-            if (!titulo_postagem || !conteudo_postagem) {
+            if (!comentario_conteudo) {
                 return res.status(400).json({
                     ok: false,
-                    message: "Título, categoria e conteúdo da postagem são obrigatórios!"
+                    message: "Conteúdo do comentário é obrigatório!"
                 })
             }
 
-            const foto_postagem = req.file ? req.file.path : null
-
-            const model = {
-                titulo_postagem,
-                conteudo_postagem,
-                foto_postagem,
-                user_id,
-                games_id: Number(games_id)
+            if (isNaN(user_id)) {
+                return res.status(401).json({
+                    ok: false,
+                    message: "Usuário não autenticado!"
+                })
             }
 
-            const postCreated = await postRepository.create(model)
+            if (!post_id) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "Post é obrigatório!"
+                })
+            }
+
+            const model = { comentario_conteudo, user_id, post_id }
+
+            const commentCreated = await commentRepository.create(model)
 
             res.status(201).json({
                 ok: true,
-                message: 'Postagem inserida com sucesso!',
-                data: postCreated
+                message: 'Comentário inserido com sucesso!',
+                data: commentCreated
             })
-
         } catch (e) {
             console.error(e)
             res.status(500).json({
@@ -103,12 +94,12 @@ const postController = {
         }
     },
 
-    async getPostByIdAndUser(req, res) {
+    async getCommentByIdAndUser(req, res) {
         try {
-            const post_id = Number(req.params.post_id)
-            const user_id = Number(req.user.id)
+            const comentario_id = Number(req.params.comentario_id)
+            const user_id = Number(req.user_id)
 
-            if (isNaN(post_id)) {
+            if (isNaN(comentario_id)) {
                 return res.status(400).json({
                     ok: false,
                     message: "ID inválido!"
@@ -122,20 +113,19 @@ const postController = {
                 })
             }
 
-            const post = await postRepository.readByIdAndUser(post_id, user_id)
+            const comentario = await commentRepository.readByIdAndUser(comentario_id, user_id)
 
-            if (!post) {
+            if (!comentario) {
                 return res.status(404).json({
                     ok: false,
-                    message: "Post não encontrado ou não pertence ao usuário!"
+                    message: "Comentário não encontrado ou não pertence ao usuário!"
                 })
             }
 
             return res.status(200).json({
                 ok: true,
-                data: post
+                data: comentario
             })
-
         } catch (e) {
             return res.status(500).json({
                 ok: false,
@@ -145,13 +135,13 @@ const postController = {
         }
     },
 
-    async updatePost(req, res) {
+    async updateComment(req, res) {
         try {
             const model = req.body
-            const post_id = Number(req.params.post_id)
-            const user_id = Number(req.user.id)
+            const comentario_id = Number(req.params.comentario_id)
+            const user_id = Number(req.user_id)
 
-            if (isNaN(post_id)) {
+            if (isNaN(comentario_id)) {
                 return res.status(400).json({
                     ok: false,
                     message: "ID inválido!"
@@ -165,42 +155,38 @@ const postController = {
                 })
             }
 
-            if (!model.titulo_postagem || !model.conteudo_postagem) {
+            if (!model.comentario_conteudo) {
                 return res.status(400).json({
                     ok: false,
-                    message: "Título e conteúdo são obrigatórios!"
+                    message: "Conteúdo do comentário é obrigatório!"
                 })
             }
 
-            const existing = await postRepository.readByIdAndUser(post_id, user_id)
+            const existing = await commentRepository.readByIdAndUser(comentario_id, user_id)
 
             if (!existing) {
                 return res.status(404).json({
                     ok: false,
-                    message: "Post não encontrado ou não pertence ao usuário!"
+                    message: "Comentário não encontrado ou não pertence ao usuário!"
                 })
             }
 
-            model.post_id = post_id
+            model.comentario_id = comentario_id
             model.user_id = user_id
-            model.games_id = Number(model.games_id)
 
-            model.foto_postagem = req.file ? req.file.path : existing.foto_postagem
-
-            const rowsAffected = await postRepository.update(model)
+            const rowsAffected = await commentRepository.update(model)
 
             if (rowsAffected > 0) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Post atualizado com sucesso!'
+                    message: 'Comentário atualizado com sucesso!'
                 })
             }
 
             return res.status(400).json({
                 ok: false,
-                message: 'Nenhuma alteração foi realizada!'
+                message: "Nenhuma alteração foi realizada!"
             })
-
         } catch (e) {
             res.status(500).json({
                 ok: false,
@@ -210,13 +196,13 @@ const postController = {
         }
     },
 
-    async deletePost(req, res) {
+    async deleteComment(req, res) {
         try {
-            const post_id = Number(req.params.post_id)
-            const user_id = Number(req.user.id)
+            const comentario_id = Number(req.params.comentario_id)
+            const user_id = Number(req.user_id)
             const confirma = req.body.key
 
-            if (isNaN(post_id)) {
+            if (isNaN(comentario_id)) {
                 return res.status(400).json({
                     ok: false,
                     message: "ID inválido!"
@@ -233,31 +219,31 @@ const postController = {
             if (confirma !== 'EXCLUIR') {
                 return res.status(400).json({
                     ok: false,
-                    message: 'Confirmação inválida!',
+                    message: "Confirmação inválida!"
                 })
             }
 
-            const existing = await postRepository.readByIdAndUser(post_id, user_id)
+            const existing = await commentRepository.readByIdAndUser(comentario_id, user_id)
 
             if (!existing) {
                 return res.status(404).json({
                     ok: false,
-                    message: "Post não encontrado ou não pertence ao usuário!"
+                    message: "Comentário não encontrado ou não pertence ao usuário!"
                 })
             }
 
-            const rowsAffected = await postRepository.delete(post_id, user_id)
+            const rowsAffected = await commentRepository.delete(comentario_id, user_id)
 
             if (rowsAffected > 0) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Post deletado com sucesso!',
+                    message: 'Comentário deletado com sucesso!'
                 })
             }
 
             return res.status(400).json({
                 ok: false,
-                message: "Não foi possível deletar o post!"
+                message: "Não foi possível deletar o comentário!"
             })
         } catch (e) {
             res.status(500).json({
@@ -269,4 +255,4 @@ const postController = {
     }
 }
 
-export default postController
+export default commentController
