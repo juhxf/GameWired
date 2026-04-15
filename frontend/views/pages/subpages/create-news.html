@@ -20,6 +20,19 @@
 
   <title>GameWired | Publicação de Notícias</title>
 </head>
+
+<div id="clear-modal" class="modal hidden">
+  <div class="modal-content">
+    <h4>Limpar conteúdo</h4>
+    <p>Tem certeza que deseja limpar esta notícia?</p>
+
+    <div class="modal-actions">
+      <button id="cancel-clear" class="btn-cancel">Cancelar</button>
+      <button id="confirm-clear" class="btn-confirm">Limpar</button>
+    </div>
+  </div>
+</div>
+
 <body>
   <div id="header"></div>
 
@@ -54,11 +67,19 @@
             <button type="button" onclick="execCmd('bold')"><b>B</b></button>
             <button type="button" onclick="execCmd('italic')"><i>I</i></button>
             <button type="button" onclick="execCmd('underline')"><u>U</u></button>
-            <button onclick="addLink()">Link</button>
+            
+            <!--<button onclick="addLink()">Link</button>-->
+          
           </div>
 
           <div class="input-box">     
             <textarea id="conteudo" class="editor" name="conteudo"></textarea>
+            <span class="error"></span>
+          </div>
+
+          <div class="input-box">
+            <label for="titulo">Link:</label>
+            <input type="text" id="link" placeholder="Link da fonte">
             <span class="error"></span>
           </div>
 
@@ -67,7 +88,7 @@
 
           <div class="action">
             <button type="submit" class="btn-publish">Publicar Notícia</button>
-            <button type="reset" class="btn-register">Limpar</button>
+            <button type="button" id="btn-clear" class="btn-register">Limpar</button>
           </div>
 
         </form>

@@ -149,3 +149,37 @@ function conteudoIsValid(value) {
 
   return validator
 }
+
+// MODAL LIMPAR
+const btnClear = document.querySelector("#btn-clear")
+const modalClear = document.querySelector("#clear-modal")
+const btnCancelClear = document.querySelector("#cancel-clear")
+const btnConfirmClear = document.querySelector("#confirm-clear")
+
+
+btnClear.addEventListener("click", () => {
+  modalClear.classList.remove("hidden")
+})
+
+btnCancelClear.addEventListener("click", () => {
+  modalClear.classList.add("hidden")
+})
+
+btnConfirmClear.addEventListener("click", () => {
+  form.reset()
+
+  // limpar erros visuais também
+  document.querySelectorAll('.input-box').forEach(box => {
+    box.classList.remove('invalid', 'valid')
+    const error = box.querySelector('.error')
+    if (error) error.innerHTML = ''
+  })
+
+  modalClear.classList.add("hidden")
+})
+
+modalClear.addEventListener("click", (e) => {
+  if (e.target === modalClear) {
+    modalClear.classList.add("hidden")
+  }
+})
