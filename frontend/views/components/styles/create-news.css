@@ -1,5 +1,5 @@
 #create-area {
-    padding: 120px 0px 0px 0px;
+  padding: 90px 0px 50px 0px;
 }
 
 .container {
@@ -16,14 +16,6 @@ label {
   margin: 1rem 0 .4rem;
 }
 
-input{
-  width: 100%;
-  padding: .7rem;
-  border-radius: 100px;
-  background-color: #1c1c1c;
-  color: var(--bg-Font);
-  font-size: 1rem;
-}
 
 .editor {
   width: 100%;
@@ -35,9 +27,9 @@ input{
 }
 
 input:focus {
-    background-color: black;
+  background-color: black;
+  border-radius: 100px;
 }
-
 
 .toolbar {
   display: flex;
@@ -54,9 +46,24 @@ input:focus {
   border-radius: 4px;
 }
 
+#form .input-box .editor {
+  min-height: 200px;
+  border-radius: 15px;
+  text-align: left;
+  resize: none;
+}
+
+#form .input-box .editor:focus {
+  border-radius: 15px;
+  background-color: black;
+}
+
+#conteudo {
+  text-align: left;
+}
 
 .editor {
-  min-height: 200px;
+  text-align: left;
 }
 
 .btn-publish {
@@ -67,4 +74,121 @@ input:focus {
   padding: .8rem 1.4rem;
   border-radius: 6px;
   text-decoration: none;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    text-wrap: nowrap;
+    padding-bottom: 0.8em;
+
+
+    input {
+      width: 100%;
+      padding: .7rem;
+      border-radius: 100px;
+      background-color: #1c1c1c;
+      color: var(--bg-Font);
+      font-size: 1rem;
+
+      &:focus {
+        background-color: black;
+        border-radius: 100px;
+      }
+    }
+
+    .error {
+      color: var(--bg-Button);
+      font-size: 1rem;
+    }
+  }
+
+  .login {
+    display: flex;
+    align-items: center;
+
+    p,
+    a {
+      font-size: 1rem;
+    }
+
+    a {
+      color: var(--bg-Button);
+      text-decoration: none;
+      padding: 0 0.5em;
+    }
+  }
+}
+
+.input-box.valid input {
+  border: 1px solid #74fc6f;
+}
+
+.input-box.valid .editor {
+  border: 1px solid #74fc6f;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: var(--bg-Card);
+  padding: 1.5rem;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content h4 {
+  margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-cancel {
+  background-color: #555;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-confirm {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
 }
